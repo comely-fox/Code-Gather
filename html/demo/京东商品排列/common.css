@@ -1,0 +1,176 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+h4, em, b {
+  font-style: normal;
+  font-weight: normal;
+}
+
+.box {
+  margin: 0 auto;
+}
+
+.box {
+  width: 1210px;
+  margin-top: 50px;
+}
+.box-top {
+  position: relative;
+  padding-bottom: 17px;
+}
+.box-top h4 {
+  line-height: 1;
+  text-align: center;
+  font-size: 32px;
+}
+.box-top a {
+  position: absolute;
+  right: 0;
+  bottom: 18px;
+  font-size: 14px;
+  color: #000;
+}
+.box-content {
+  height: 481px;
+}
+.box-content .showcasing, .box-content .side {
+  float: left;
+}
+.box-content .showcasing .img, .box-content .side .img {
+  width: 100%;
+  overflow: hidden;
+}
+.box-content .showcasing img, .box-content .side img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.box-content .showcasing {
+  width: 807px;
+  height: 100%;
+}
+.box-content .showcasing .bs-item {
+  float: left;
+  width: 403px;
+}
+.box-content .showcasing .bs-item.item2 {
+  margin-left: 1px;
+}
+.box-content .showcasing .bs-item a:hover .detail {
+  background-color: #2c2527;
+}
+.box-content .showcasing .bs-item a:hover .detail em, .box-content .showcasing .bs-item a:hover .detail span {
+  color: #FFF;
+}
+.box-content .showcasing .bs-item a:hover .detail i {
+  background-position-y: -50px;
+}
+.box-content .showcasing .img {
+  height: 381px;
+}
+.box-content .showcasing .detail {
+  width: 100%;
+  height: 100px;
+  background-color: #F7F6FC;
+}
+.box-content .showcasing .num, .box-content .showcasing .name {
+  float: left;
+}
+.box-content .showcasing .num {
+  width: 92px;
+  height: 84px;
+  padding-top: 16px;
+  text-align: center;
+  color: #FFF;
+  background-color: #cf2653;
+}
+.box-content .showcasing .num em, .box-content .showcasing .num span {
+  display: block;
+  color: #FFF;
+}
+.box-content .showcasing .num em {
+  line-height: 36px;
+  font-size: 36px;
+  font-family: "Impact";
+}
+.box-content .showcasing .num span {
+  line-height: 14px;
+  font-size: 16px;
+  font-family: "Andale Mono";
+  opacity: .3;
+}
+.box-content .showcasing .num b {
+  line-height: 18px;
+  font-size: 12px;
+  font-weight: 400;
+}
+.box-content .showcasing .name {
+  width: 291px;
+  height: 76px;
+  padding: 24px 0 0 20px;
+}
+.box-content .showcasing .name i {
+  float: left;
+  width: 30px;
+  height: 43px;
+  margin: 7px 10px 0 0;
+  background: url(https://misc.360buyimg.com/channel/fashion/3.0.0/css/i/sprite.png) no-repeat -380px 0;
+}
+.box-content .showcasing .name em, .box-content .showcasing .name span {
+  display: block;
+  line-height: 25px;
+}
+.box-content .side {
+  width: 403px;
+}
+.box-content .side .si-item {
+  float: left;
+  margin-left: 1px;
+  height: 240px;
+}
+.box-content .side .si-item.nth1, .box-content .side .si-item.nth3 {
+  width: 201px;
+}
+.box-content .side .si-item.nth2, .box-content .side .si-item.nth4 {
+  width: 200px;
+}
+.box-content .side .si-item a:hover span, .box-content .side .si-item a:hover em {
+  color: #FFF;
+}
+.box-content .side .si-item a:hover .detail {
+  background-color: #2c2527;
+}
+.box-content .side .img {
+  height: 140px;
+}
+.box-content .side .detail {
+  width: 100%;
+  height: 75px;
+  padding-top: 25px;
+  text-align: center;
+  background-color: #F7F6FC;
+}
+.box-content .side .detail span, .box-content .side .detail em {
+  display: block;
+}
+.box-content em, .box-content span {
+  font-size: 16px;
+}
+.box-content em {
+  color: #2c2426;
+}
+.box-content span {
+  color: #cf2653;
+}
+
+/*# sourceMappingURL=common.css.map */

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<style>
+.box {
+
+    width: 200px;
+    height: 200px;
+    background-color: green;
+}
+.box:nth-child(2){
+    background-color: yellow;
+}
+.box:nth-child(3){
+    background-color: gray;
+}
+.box:nth-child(4){
+    background-color: black;
+}
+</style>
+</head>
+<body>
+    
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+</body>
+<script>
+var awaitQueue = (function () {
+    var def = $.Deferred(), count = 0;
+    def.resolve();
+    return function ( ) {
+
+        for ( var i = 0, len = arguments.length; i < len; i++ ) {
+            let fn = arguments[ i ];
+            $.Deferred( function ( d ) {
+                
+                if ( d.count === undefined ) {
+
+                    d.count = count++;
+                }
+                
+                // def 寻找当前的内存地址, 一级一级的寻找地址
+                def.done( function ( data ) {
+                    
+                    fn( d );
+                    console.log( d.count )
+                });
+
+               
+                
+            });
+            
+        }
+    }
+}());
+
+// 上级控制下一级， 一级一级的控制循环下去
+awaitQueue(
+    // def 是当前的Deferred 对象
+    function f0( def ) {
+        
+        $('.box').eq( 0 ).animate({ 'width': 100 }, 1000, function () {
+            def.resolve();
+        });
+    },
+    function f1( def ) {
+        $('.box').eq( 1 ).animate({ 'width': 100 }, 1000, function () {
+            def.resolve();
+        });
+    },
+    function f2( def ) {
+        $('.box').eq( 2 ).animate({ 'width': 100 }, 1000, function () {
+            def.resolve();
+        });
+    },
+    function f3( def ) {
+        $('.box').eq( 3 ).animate({ 'width': 100 }, 1000, function () {
+            def.resolve();
+        });
+    },
+    function f4( def ) {
+        $('.box').eq( 0 ).animate({ 'height': 100 }, 1000, function () {
+            def.resolve();
+        });
+    }
+);
+
+
+/* 
+$.Deferred( function (def) {
+
+    $('.box').eq( 0 ).animate({ 'width': 100 }, 1000, function () {
+
+        def.resolve( 'success1' );
+    });
+}).then( function ( data ) {
+    
+    console.log( data );
+    return $.Deferred( function ( def ) {
+        $('.box').eq( 1 ).animate({ 'width': 100 }, 1000, function () {
+            def.resolve( 'success2');
+        });
+    });
+}).then( function ( data ) {
+    
+    console.log( data );
+    return $.Deferred( function ( def ) {
+        $('.box').eq( 2 ).animate({ 'width': 100 }, 1000, function () {
+            def.resolve( 'success3');
+        });
+    });
+}).then( function ( data ) {
+    
+    console.log( data );
+    return $.Deferred( function ( def ) {
+        $('.box').eq( 3 ).animate({ 'width': 100 }, 1000, function () {
+            def.resolve( 'success4');
+        });
+    });
+}).then( function ( data ) {
+
+    console.log( data );
+}); */
+
+
+
+</script>
+</html>

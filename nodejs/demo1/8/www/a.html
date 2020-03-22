@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="ajax.js"></script>
+    <script type="text/javascript">
+        window.onload = () => {
+            const oUser = document.getElementById( 'user' );
+            const oPass = document.getElementById( 'pass' );
+            const oBtnLogin = document.getElementById( 'btn-login' );
+
+            oBtnLogin.onclick = () => {
+                ajax( {
+                    url : '/login',
+                    data : {
+                        user : oUser.value,
+                        pass : oPass.value,
+                    },
+                    type : 'get',
+                    success : function( data ){
+                        var json = JSON.parse( data );
+                        if ( json.ok ){
+                            alert( json.msg );
+                        }else{
+                            alert( '失败 : ' + json.msg );
+                        }
+                    },
+                    error : ( err ) => {
+                        alert( '通信失败' );
+                    }
+                } );
+            };
+        }
+
+    </script>
+</head>
+<body>
+    <label for="">用户:</label>
+    <input type="text" id="user"><br />
+    <label for="">密码</label>
+    <input type="password" id="pass"><br />
+    <input type="button" value="登录" id="btn-login">
+    <input type="button" value="注册" id="btn-reg">
+</body>
+</html>

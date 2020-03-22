@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<style>
+body {background:black; margin:0; overflow:hidden;}
+h1 { position:absolute; top:4px; left:10px; margin:0; width:430px; }
+h1 a { width:256px; height:37px; float:left; background: url(logo.gif) no-repeat; }
+h1 strong { float:left; font-size:14px; color:#FFCC66; padding-top:12px; font-weight: normal; font-family:arial; }
+#fps { color:#94d37e; margin-left:10px;}
+#bg {width:100%; height:100%; background:white; filter:alpha(opacity:50); opacity:0.5; position:absolute; left:0; top:0;}
+#loading {position:absolute; top:50%; color:white; z-index:2; text-align:center; width:100%;}
+img {position:absolute;}
+#ctrl_pad {background:black url(body_bg.gif) repeat-x 0 48px; height:85px; color:#fff;}
+#auto_play { width:107px; height:31px; background:url(btn.gif) no-repeat; border:none; color:#e1e1e1; font-size:12px; position:absolute; top:8px; left:450px; }
+h2 { text-align:center; color: #524e69; width:100%; position:absolute; bottom:10px; left:0; font-size:16px; font-weight:normal; font-family:arial; }
+h2 a { color: #524e69; text-decoration:none; }
+h2 a:hover { border-bottom:1px dotted #00CCCC; color:#0cc; }
+#info { color:#827ed3;font-size:14px; font-family:arial; font-weight:bold; position:absolute; top:15px; left:570px;}
+.btn,#show_pad { position:absolute; top:16px; right:20px; color:#9a9a9a; text-decoration:none; font-size:12px; }
+.btn:hover,#show_pad:hover { text-decoration:none; color:#ccc; }
+em { color:#ccc; font-size:12px; font-weight:normal; font-style:normal; }
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>JavaScript 彩虹圈</title>
+<script type="text/javascript">
+function nowTime(){
+	return new Date().getTime();
+}
+function random( min, max ){
+	return parseInt( Math.random() * 999999 % ( max - min + 1 ) ) + min;
+}
+window.onload = function(){
+
+	var i = 0;
+	var count = 0;
+	var total = 5;
+	var aImgs = [ ];
+	var bManual = true;
+	var oCtrl=document.getElementById('ctrl_pad');
+	var oAutoPlay=document.getElementById('auto_play');
+	var bMoveType = true;
+	var onUse = false;
+	var SPEED_MAX=20;
+	var SIZE = 100;
+	var SPEED_CNG_RATE = 4; // 不规则运行
+	var autoTimer = null;
+
+	oAutoPlay.onclick = function(){
+		if ( bMoveType ){ // true 自动移动
+			var x = random( 0, document.documentElement.clientWidth );
+			var y = random( 0, document.documentElement.clientHeight );
+			var xSpeed = random( -SPEED_MAX, SPEED_MAX );
+			var ySpeed = random( -SPEED_MAX, SPEED_MAX );
+			autoTimer = setInterval(function(){
+				doMove( {x: x, y: y } );
+
+				// 移动
+				x += xSpeed;
+				y += ySpeed;
+
+				if ( x <=  SIZE / 2){
+					xSpeed = random( 0, SPEED_MAX );
+				}else if( x >= document.documentElement.clientWidth - SIZE / 2 ){
+					xSpeed = random( -SPEED_MAX, 0);
+				}
+
+				if ( y <=  SIZE / 2){
+					ySpeed = random( 0, SPEED_MAX );
+				}else if( y >= document.documentElement.clientHeight - SIZE / 2 ){
+					ySpeed = random( -SPEED_MAX, 0);
+				}
+
+				if ( xSpeed < -SPEED_MAX ){
+					xSpeed += random( 0, SPEED_CNG_RATE );
+				}else if( xSpeed > SPEED_MAX ){
+					xSpeed += random( -SPEED_CNG_RATE, 0 );
+				}else{
+					xSpeed += random( -SPEED_CNG_RATE, SPEED_CNG_RATE );
+				}
+
+				if ( ySpeed < -SPEED_MAX ){
+					ySpeed += random( 0, SPEED_MAX );
+				}else if( xSpeed > SPEED_MAX ){
+					ySpeed += random( -SPEED_CNG_RATE, 0 );
+				}else{
+					ySpeed += random( -SPEED_CNG_RATE, SPEED_CNG_RATE );
+				}
+
+			}, 40 );
+			this.value = "手动";
+			bManual=false;
+			document.onmousedown=null;
+			bMoveType = false;
+		}else{
+			document.onmousedown = fnHandlerMouseMove;
+			clearInterval( autoTimer );
+			this.value = "自动";
+			bMoveType = true;
+		}
+	}
+	setTimeout( function(){
+		if ( !onUse ){
+			oAutoPlay.onclick();
+		}
+	}, 1000 );
+	while ( i < total ) {
+		aImgs[ i ] = new Image();
+		aImgs[ i ].onload = function(){
+			if ( ++count === total ){
+				document.getElementById('bg').style.display='none';
+				document.getElementById('loading').style.display='none';
+				start();
+			}
+		};
+		aImgs[ i ].onerror = function(){
+			document.getElementById('loading').innerHTML='<span style="color:yellow;font-size:26px; font-weight:bold;">素材加载失败，请刷新后重试</span>';
+		};
+		aImgs[ i ].src = "qun_" + ( i + 1 ) + ".png";
+		i++;
+	}
+
+	var aGather = [ ];
+	var SPEED_RATE = 45;
+	var samp = 0;
+	var SAMP_RATE = 3;
+	var oFps=document.getElementById('fps');
+	function fnHandlerMouseMove(){
+		document.onmousemove = function ( ev ){
+			var ev = ev || window.event;
+			if ( samp++ % SAMP_RATE ){
+				doMove( { x: ev.clientX,
+					y : ev.clientY } );
+				// console.log( samp )
+			}
+		};
+		document.onmouseup = function(){
+			document.onmousemove = null;
+			document.onmouseup = null;
+		};
+		return false;
+	}
+
+	var doMove = (function ( json ){
+		var i = 0;
+		var total = 5;
+		var last = -1;
+		var id = 0;
+		var every = 0;
+		var flg = true;
+		return function( json ){
+			if ( flg ){
+				i = 0;
+				total = random( 1, 5 ); // 一张图片一组出现几次
+				flg = false;
+			}
+			if ( i === total ){
+				flg = true;
+			}else{
+				flg = false;
+			}
+			if ( i++ % total ){
+				id = last;
+			}else{
+				id = ( last + 1 ) % total;
+				last = id;
+			}
+			json.id =  id; //random( 0, 4 );
+			// console.log( json.id )
+			createImg( json );
+		};
+	})();
+
+	function createImg( json ){
+		var newImg = document.createElement( "img" );
+		newImg.src = aImgs[ json.id ].src;
+		newImg.width = aImgs[ json.id ].width;
+		newImg.height = aImgs[ json.id ].height;
+		newImg.style.left = json.x + "px";
+		newImg.style.top = json.y + "px";
+		newImg.style.marginLeft = -newImg.width / 2 + "px";
+		newImg.style.marginTop = -newImg.height / 2 + "px";
+		document.body.appendChild( newImg );
+		aGather.push( {
+			obj: newImg,
+			speedX: newImg.width / SPEED_RATE,
+			speedY: newImg.height / SPEED_RATE
+		} )
+	}
+
+	function start(){
+		document.onmousedown = fnHandlerMouseMove;
+		var lastUpdateTime = 0;
+		var lastTime = 0;
+		var showFps = 0;
+		var FPS_RATE = 20;
+		setInterval( function(){
+			var inNow = nowTime();
+			if ( inNow - lastUpdateTime > 30 ){
+
+				for ( var i = 0; i < aGather.length; i++ ){
+					aGather[ i ].obj.width = Math.max( aGather[ i ].obj.offsetWidth - aGather[ i ].speedX, 0 );
+					aGather[ i ].obj.height = Math.max( aGather[ i ].obj.offsetHeight - aGather[ i ].speedY, 0 );
+					aGather[ i ].obj.style.marginLeft = -aGather[ i ].obj.width / 2 + "px";
+					aGather[ i ].obj.style.marginTop = -aGather[ i ].obj.height / 2 + "px";
+
+					if ( bManual ){
+						aGather[ i ].obj.style.top = parseInt( aGather[ i ].obj.style.top ) - 5 + "px";
+					}
+					if ( aGather[ i ].obj.width === 0 || aGather[ i ].obj.height === 0 ){
+						document.body.removeChild( aGather[ i ].obj );
+						aGather.shift( i, 1 );
+						--i;
+					}
+				}
+
+				lastUpdateTime = inNow;
+			}
+
+			if ( !( showFps++ % FPS_RATE ) ){
+				oFps.innerHTML = parseInt( 1000 / ( inNow - lastTime ) );
+			}
+			lastTime = inNow;
+		}, 1);
+	}
+};
+
+document.oncontextmenu = function(){
+	return false;
+};
+</script>
+</head>
+
+<body>
+<div id="ctrl_pad">
+	
+	<a class="btn" href="javascript:;" onclick="document.getElementById('ctrl_pad').style.display='none';document.getElementById('show_pad').style.display='block';">↑↑ 收缩</a>
+	<div id="info">
+		<em>可以在屏幕上随便拖拽鼠标，或者点击“自动移动”</em> - FPS:<span id="fps"></span>
+	</div>
+	<input id="auto_play" type="button" value="自动移动" />
+	
+</div>
+<a style="display:none;" id="show_pad" href="javascript:;" onclick="document.getElementById('ctrl_pad').style.display='block';document.getElementById('show_pad').style.display='none';">↓↓ 重新显示</a>
+<div id="bg">
+</div>
+<div id="loading">
+	loading...
+</div>
+</body>
+</html>

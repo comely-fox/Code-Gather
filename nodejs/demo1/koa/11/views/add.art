@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    table{
+        width:100%;
+        border-collapse: collapse;
+    }
+    .table, th, td{
+        padding: 13px;
+        border: 1px solid #ccc;
+        text-align: center;
+    }
+    td{
+        border: 1px dotted  #ccc;
+    }
+    input,select{
+        width: 360px;
+        line-height: 20px;
+        padding:  5px;
+        border: 1px solid #bbb;
+        box-sizing: border-box;
+    }
+    a{
+        padding: 0 15px;
+    }
+    </style>
+</head>
+<body>
+    <table>
+        <form action="/add" method="post">
+        <thead>
+            <tr>
+                <th colspan="2" style="font-szie: 36px;">增加用户</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>用户名:</td>
+                <td><input type="text" name="username"></td>
+            </tr>
+            <tr>
+                <td>年龄:</td>
+                <td>
+                    <select class="" name="age">
+                        <% for( var i = 1 ; i <= 200; i++ ){ %>
+                            <option value="{{i}}">{{i}}岁</option>
+                        <% } %>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>性别</td>
+                <td>
+                    <select class="" name="sex">
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input style="width:50px;" type="submit" value="添加">
+                </td>
+            </tr>
+        </tbody>
+        </form>
+    </table>
+</body>
+</html>

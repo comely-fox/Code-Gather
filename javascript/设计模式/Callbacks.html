@@ -1,0 +1,248 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<script>
+var Callbacks = (function() {
+	var 
+		optionsCache = {},
+	
+		createOptions = function (options) {
+	
+			var object = optionsCache[ options ] = {};
+
+			(options.match(/\S+/g) || []).forEach( flag => {
+			
+				object[ flag ] = true;
+			});
+			
+			return object;
+		};
+	
+
+	return function (options) {
+		var options = typeof options === 'string' ?
+				(optionsCache[ options ] || createOptions( options )) :
+				Object.assign({}, options);
+
+		var list = [],
+			firing,
+			
+			// 标记fire是否已经发射过了
+			fired,
+			
+			// 最后一次的发射值
+			memory,
+			firingLength,
+			firingStart,
+			firingIndex,
+			not = false,
+			// 非once选项时，在回调内部触发fire用到的堆栈
+			stack = !options.once && [],
+			
+			fire = function (data) {
+			
+				memory = options.memory && data;
+				  fired = true;
+				  firingIndex = firingStart || 0;
+				  firingStart = 0;
+				  firingLength = list.length;
+				  firing = true;
+				
+				if ( list ) {
+					for( ; firingIndex < firingLength; firingIndex++ ) {
+
+						if ( list[ firingIndex].apply( data[0], data[1] ) === false && options.stopOnFalse ) {
+						
+							break;
+						};
+						
+					}
+					
+				}
+					
+				// 订阅者已经运行完毕
+				firing = false;
+				not = true;
+				if ( list ) {
+				
+					// 回调中调用了fire方法
+					if ( stack ) {
+					
+						if (stack.length) {
+						
+							fire(stack.shift());
+						}
+					}
+					else if(memory) {
+						
+						list = [];
+					}
+					else {
+						
+						self.disable();
+					}
+					
+				}
+				return this;
+			},
+	
+			self = {
+		
+				add: function () {
+					if ( list ) {
+						arguments = [].slice.call(arguments);
+
+						(function add( args, that ){
+		
+							args.forEach( function (fn) {
+			
+								if ( typeof fn === 'function' ) {
+									
+									// 是否可以添加重复的回调
+									if ( !options.unique || !self.has(fn) ) {
+										
+										list.push(fn);
+									}
+								}
+								
+								else if( Array.isArray( fn ) ) {
+								
+									add(fn);
+								}
+													
+							}, this);
+						}(arguments));
+						
+						// 是否需要把内部的回调添加到当前进行运行
+						if ( firing === true ) {
+					
+							firingLength = list.length;
+						} else if( memory ) {
+							
+							firingStart = firingLength;
+							fire(memory);
+						}
+						
+					
+					}
+					
+					
+					return this;
+				},
+				 // Call all callbacks with the given context and arguments
+				  fireWith: function( context, args ) {
+					args = args || [];
+					args = [ context, args.slice ? args.slice() : args ];
+
+					if ( list && ( !fired || stack ) ) {
+						
+					// 在发射的时候, 在回调函数里面再次发射, 把数组[上下文, 发射的数据]丢进堆栈
+
+					  if ( !firing ) {
+						fire( args );
+					  } else if ( !not )  {
+						stack.push(args)
+					  }
+					}
+					return this;
+				  },
+				fire: function(){
+
+					self.fireWith(this, arguments);
+					return this;
+				},
+				remove: function () {
+					if ( list ) {
+						
+						var arg = arguments = [].slice.call(arguments);
+
+						arguments.forEach( function (fn) {
+							var position;
+							while ( (position = list.indexOf(fn, position)) > -1 ) {
+
+								list.splice( position, 1 );
+								
+								// 发射中, 处理
+								if ( firing === true ) {
+								
+									if ( position <= fireLength ) {
+							
+										--fireLength;
+									}
+									
+									if ( position <= fireIndex ) {
+									
+										--fireIndex;
+									}
+								}
+							
+							}
+						});
+						
+						
+						
+					
+					}
+					return this;
+				},
+				// 检查列表中是否有给定的回调函数。
+				//如果没有给出参数，返回listj里是否有回调。
+				has: function( fn ) {
+					return fn ? list.indexOf( fn ) > -1 : !!( list && list.length );
+				},
+				disable: function () {
+				
+					list = stack = memory = undefined;
+
+					return this;
+				}
+		
+			};
+			
+		return self;
+	}
+}());
+
+var i = j = 0;
+function inner() {
+
+	console.log('inner', this,i++);
+	
+	
+	
+}
+function a(data) {
+
+	console.log('a', data);
+	//cb.fire('inner fire');
+	
+}
+function b() {
+//c/b.fire('inner fire2');
+//cb.fire('inner fire4');
+	console.log('b', this, j++);
+}
+function c() {
+	//cb.add(b)
+	console.log('c');
+	
+}
+
+var cb = Callbacks('memory unique');
+
+// 异步
+setTimeout( function () {
+
+	
+});
+
+cb.add( a, c);
+cb.fire('data');
+
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	
+</head>
+<body>
+	<script type="text/javascript" src="module2.js"></script>
+	<script type="text/javascript" src="module1.js"></script>
+	<script>
+	/*
+	// 对象字面量
+	
+	var basket = [];
+	
+	var stack = {
+		
+		add: function (item) {
+		
+			basket.push(item)
+			return true;
+		},
+		
+		count: function () {
+			return basket.length;
+		},
+		
+		delete: function (value) {
+			var i = this.count();
+			while(i--) {
+				
+				if (basket[i] === value){
+					return [].splice.call(basket, i, 1) + '';
+				}
+			}
+		}
+	};
+	
+	
+	
+	
+	var stack = (function () {
+		var basket = [];
+		
+		return {
+			add: function (item) {
+			
+				basket.push(item)
+				return true;
+			},
+			
+			count: function () {
+				return basket.length;
+			},
+			
+			delete: function (value) {
+				var i = this.count();
+				while(i--) {
+					
+					if (basket[i] === value){
+						return [].splice.call(basket, i, 1) + '';
+					}
+				}
+			},
+			
+			all: function() {
+			
+				return basket;
+			}
+		};
+	}());
+	
+	console.log(stack.add('one'));
+	console.log(stack.add('two'));
+	console.log(stack.add('three'));
+	console.log(stack.count());
+	console.log(stack.delete('three'));
+	console.log(stack.count());
+	console.log(basket);
+	console.log(stack.all());
+	*/
+	console.log(MODULE);
+	</script>
+	
+</body>
+</html>

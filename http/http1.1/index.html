@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+</head>
+<body>  
+    <h2>Welcome</h2>
+
+<!-- <script>
+const xhr = new XMLHttpRequest();
+xhr.open( 'GET', 'http://localhost:3001' );
+xhr.send();
+xhr.onload = function () {
+
+
+    console.log( this.readyState, this.status, this.responseText );
+}
+</script> -->
+<!-- JSONP -->
+
+<script>
+
+var Jsonp = function ( url, callback ){
+    var callbackName = 'Callback' + new Date().getTime()+(Math.random().toString().substring(2));
+
+   window[ callbackName ]= function  ( data ) {
+        
+        delete window[ callbackName ];
+        document.body.removeChild( oScript );
+        callback( data );
+    };
+
+    url += url.indexOf( '?' ) === -1 ? '?' : '&';
+    url += 'callback=' + callbackName;
+    // 创建script标签
+    var oScript = document.createElement('script');
+    oScript.src = url;
+    document.body.appendChild( oScript );
+}
+var b = 0;
+Jsonp('http://localhost:3001/', function (data) {
+
+    b += data;
+    console.log( data );
+});
+/* Jsonp('http://localhost:3002/', function (data) {
+
+    b += data;
+    console.log( data );
+}); */
+console.log( b );
+setTimeout( (...arguments) => {
+
+    console.log( arguments, b );
+}, 0, 1 , 20000);
+console.log( window.getComputedStyle( document.body )['backgroundColor']);
+
+
+for ( var i = 100000000; i--; );
+</script>
+
+<h3>Do Some...</h3>
+
+<h3>Do Some...</h3>
+
+<h3>Do Some...</h3>
+
+<h3>Do Some...</h3>
+
+<h3>Do Some...</h3>
+
+<h3>Do Some...</h3>
+
+<script>
+
+for ( var i = 100000000; i--; );
+</script>
+
+<h3>Do Some...</h3>
+
+<h3>Do Some...</h3>
+<h3>Do Some...</h3>
+
+<h3>Do Some...</h3>
+<h3>Do Some...</h3>
+
+<h3>Do Some...</h3>
+</body>
+<script>
+document.body.style.background="gray";
+</script>
+<style>
+    body {
+    
+        background-color: rgb(255, 249, 240) !important;
+        color: red;
+        font-size: 16px;
+    }
+    </style>
+</html>

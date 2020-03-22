@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+*{
+	padding: 0;
+	margin:0;
+}
+#d{
+	
+	background: gray;
+	margin: 0 auto;
+	overflow: hidden;
+}
+</style>
+</head>
+<body>
+<div id="d">
+	
+</div>
+<script>
+var d = document.getElementById("d");
+var dw = 1000;
+var dh = 400;
+var dc = Math.sqrt(Math.pow(dw,2)+Math.pow(dh,2));
+var dwScale = (dw / dc);
+var dhScale = (dh / dc);
+
+var dwcScale = dw / dh;
+window.onresize=function(){
+	var ww = document.documentElement.clientWidth;
+	var wh = document.documentElement.clientHeight;
+	if (wh > 400){
+		wh = 400;
+	}
+	if (ww > 1000){
+		ww = 1000;
+	}
+	var wc = Math.sqrt(Math.pow(ww,2)+Math.pow(wh,2));
+	var dwScale2 = (wc / dc);
+
+	var dc2 = wc * dwScale2;
+	var dw2 = dc2 * dwScale;
+	var dh2 = dc2 * dhScale;
+
+	var bh = dh2;
+	var bw = dw2;
+	if (wh < 400){
+		dh2 = wh;
+		dw2 = dh2 * dwcScale;
+		if (dh2 > bh){
+			dh2 = bh;
+		}
+		if (dw2 > bw){
+			dw2 = bw;
+		}
+
+	}
+
+
+	d.style.width = dw2 + "px";
+	d.style.height = dh2 + "px";
+};
+</script>
+</body>
+</html>

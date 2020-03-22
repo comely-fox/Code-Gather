@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图片自适应</title>
+	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+	<div class="slider">
+  	 <ul id="slides" class="slides clearfix">
+    	 <li><img class="responsive" src="images/1.jpg" /></li>
+    	 <li><img class="responsive" src="images/2.jpg" /></li>
+    	 <li><img class="responsive" src="images/3.jpg" /></li>
+    	 <li><img class="responsive" src="images/4.jpg" /></li>
+  	 </ul>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+ $(document).ready(function() {
+ var len = $(".slider li").length-1;
+ //给slider设置样式
+ $(".slider").css({
+  "width":"100%",
+  "height": "inherit",
+  "overflow": "hidden",
+  "display":"inline-block"
+ });
+  
+ //给ul设置宽度
+ $(".slides").css({
+  "position": "relative",
+  "width":((len+1)*100).toString()+"%",
+  "margin":"0",
+  "padding":"0"});
+ //给li设置百分比宽度
+ $(".slides li").css({
+  "width":(100/(len+1)).toString()+"%",
+  "float":"left"
+ });
+ 
+ //给图片设置宽度
+ $(".responsive").css({
+  "width":"100%",
+  "height":"inherit"
+ });
+ var i = 0;
+ //自动轮播
+ var timer = setInterval(function(){
+  moveNext(i);
+ },3000);
+ moveNext = function(n){
+  if(n==len){
+  i=-1;
+  $(".slider .slides").animate({right: ""},800);
+  }else{
+  $(".slider .slides").animate({right:((n+1)*100).toString()+"%"}, 800);
+  }
+  i++;
+ }
+ });
+</script>
+

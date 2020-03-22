@@ -1,0 +1,14 @@
+{
+  "name": "test133333",
+  "version": "0.0.2",
+  "description": "这个是测试包，千万别下",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "9w8e4r9ew4t6w4tgt4+6wt464"
+  ],
+  "author": "comely-fox",
+  "license": "ISC"
+}

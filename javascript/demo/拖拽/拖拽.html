@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+#drag{
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	background-color:red;
+}
+</style>
+</head>
+<body>
+	ewtgwtwewtgwtwewtgwtwewtgwtwewtgwtwewtgwtwewtgwtwewtgwtwewtgwtwewtgwtwewtgwtwewtgwtwewtgwtwewtgwtw
+<div class="" id="drag"></div>
+<script>
+try{
+
+	var oDrag = document.querySelector("#drag");
+}catch(e){
+	var oDrag = document.getElementById("drag");
+}
+
+oDrag.onmousedown = function(ev){
+	var _this = this;
+	var ev = ev || event;
+	var orgX = ev.clientX - this.offsetLeft;
+	var orgY = ev.clientY - this.offsetTop;
+
+	if (this.setCapture){
+		this.onmousemove = fnMove;
+		this.onmouseup = fnUp;
+		this.setCapture();
+	}else{
+		document.onmousemove = fnMove;
+		document.onmouseup = fnUp;
+	}
+	function fnUp(){
+		this.onmousemove = null;
+		this.onmouseup = null;
+		if (this.releaseCapture){
+			this.releaseCapture();
+		}
+	};
+	function fnMove(ev){
+		var ev = ev || event;
+		var actX = ev.clientX;
+		var actY = ev.clientY;
+
+		var targetX = actX - orgX;
+		var targetY = actY - orgY;
+
+		if (targetX < 0){
+			targetX = 0;
+		}else if(targetX > document.documentElement.clientWidth - _this.offsetWidth){
+			targetX = document.documentElement.clientWidth - _this.offsetWidth
+		}
+		if (targetY < 0){
+			targetY = 0;
+		}else if(targetY > document.documentElement.clientHeight - _this.offsetWidth){
+			targetY = document.documentElement.clientHeight - _this.offsetWidth
+		}
+		_this.style.left = targetX + "px";
+		_this.style.top = targetY + "px";
+	}
+	return false;
+};
+</script>
+</body>
+</html>

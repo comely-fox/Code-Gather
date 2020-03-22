@@ -1,0 +1,108 @@
+<title>无缝轮播图</title>
+<style>
+*{margin: 0;padding:0; }
+ul{list-style: none;}
+.banner{width: 600px;height: 300px;border: 2px solid #ccc;margin: 100px auto;position: relative;overflow: hidden;}
+.img{position: relative;top: 0;right:0}
+.img li{float: left;width:600px;}
+.img img{width:600px;}
+.num{position: absolute;bottom: 10px;width: 100%;text-align: center;font-size: 0;}
+.num li{width: 10px;height: 10px;background:rgba(0,0,0,0.5);display: block;border-radius: 100%;display: inline-block;margin: 0 5px;cursor: pointer;}
+.btn{display: none;}
+.btn span{display:block;width:50px;height:100px;background:rgba(0,0,0,0.6);color:#fff;font-size:40px;line-height:100px;text-align:center;cursor:pointer;}
+.btn .prev{position: absolute;left: 0;top: 50%;margin-top: -50px;}
+.btn .next{position: absolute;right: 0;top: 50%;margin-top: -50px;}
+.num .active{background-color:#fff;}
+</style>
+<script src="http://apps.bdimg.com/libs/jquery/1.8.3/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="banner">
+<ul class="img">
+<li><a href="#"><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1512034516774&di=f74f449824b8e8b6a9038ec77ca7d6c7&imgtype=0&src=http%3A%2F%2Fg.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fd52a2834349b033be59844a91fce36d3d539bdb5.jpg" alt="第1张图片"></a></li>
+<li><a href="#"><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1512034516773&di=1e95823159e9bf6752abe2f2b3965488&imgtype=0&src=http%3A%2F%2Fa.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F8718367adab44aedfe5fbd2eba1c8701a08bfbe3.jpg" alt="第2张图片"></a></li>
+<li><a href="#"><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1512034652718&di=05bf67eb70bcc3081179f9a8010b3f68&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F54fbb2fb43166d22ed75ace74c2309f79052d247.jpg" alt="第3张图片"></a></li>
+<li><a href="#"><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1512034718247&di=7dc4bf3bc337d1bd7195ce52f89f994c&imgtype=0&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Ff2deb48f8c5494ee0d35b76a27f5e0fe99257eaa.jpg" alt="第4张图片"></a></li>
+<li><a href="#"><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1512034817767&di=1f152e62695c5ba616f329f516ebc35e&imgtype=0&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F4e4a20a4462309f7ec5b2ec3780e0cf3d7cad62f.jpg" alt="第5张图片"></a></li>
+</ul>
+<ul class="num"></ul>
+<div class="btn">
+<span class="prev" data-flag="prev"><</span>
+<span class="next" data-flag="next">></span>
+</div>
+</div>
+<script>
+$(function(){
+	var i = 0;
+	var timer=null;
+	var $box = $('.img');
+	var $imgs = $box.find('li')
+	var len = $imgs.length;
+	var txtli = '';
+	
+	
+	$imgs.each(()=>{
+		txtli += '<li></li>';
+	});
+	//创建圆点并给第一个圆点添加样式
+	$('.num').append(txtli).children('li').first().addClass('active');
+	
+	//将第一张图片放到最后一张图片后，设置ul的宽度为图片张数*图片宽度
+	$box.append($imgs.first().clone()).width($imgs.first().width() * $('.img li').length);
+	
+	
+	// 自动轮播
+	autoplay();
+
+	
+	// 按钮切换轮播图
+	$('.next, .prev').click(function() {
+		transformStyle($(this).data('flag'))
+	});
+	//鼠标划入圆点切换轮播图
+	$('.num li').mouseover(transformStyle);
+	
+	// 设置按钮的显示和隐藏
+	// 鼠标移入，暂停自动播放，移出，开始自动播放
+	$('.banner').hover(function(){
+		clearInterval(timer);
+		$('.btn').show();
+	},function(){
+		$('.btn').hide();
+		autoplay();
+	})
+	
+	function transformStyle(name) {
+		switch(name) {
+			case 'next':
+				++i;
+				if (i > len) {
+					i = 1;
+					$box.css('right', 0);
+				}
+				break;
+			case 'prev':
+				--i;
+				
+				if (i === -1) {
+					i = len-1;
+					$box.css('right', len * $imgs.first().width());
+				}
+				break;
+			default: 
+				i = $(this).index();
+		}
+		
+		$('.img').stop().animate({right:i*600},300);
+		$('.num li').eq(i === len ? 0 : i).addClass('active').siblings().removeClass('active');
+	}
+	
+	function autoplay() {
+		timer = setInterval(function () {
+			transformStyle('next')
+		}, 2000);
+	}
+
+})
+</script>

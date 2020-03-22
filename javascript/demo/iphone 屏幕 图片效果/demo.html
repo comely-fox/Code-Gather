@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>iPhone手机图片查看器 - 妙味课堂 - www.miaov.com</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="perfectDrag.js"></script>
+<script type="text/javascript">
+var oTimer=null;
+var iSpeed=0;
+var iNow=0;
+
+window.onload=function ()
+{
+	var oUl = document.getElementById("wrap").getElementsByTagName("ul")[ 0 ];
+	var iNow = 0;
+	var initX = 0;
+	// var l = 0;
+		var l = 0;
+	oUl.style.overflow = "hidden";
+	oUl.onmousedown = function( ev ){
+		var oEvent = ev || window.event;
+
+		var x = this.offsetLeft;
+		var disX = oEvent.clientX - x;
+		// console.log(disX)
+		document.onmousemove = function( ev ){
+			var oEvent = ev || window.event;
+			l = oEvent.clientX - disX;
+			oUl.style.left = l + "px";
+		}
+		document.onmouseup = function( ev ){
+			var oEvent = ev || window.event;
+			if ( Math.abs(oUl.offsetLeft - x) >= 50 ){
+				if ( x < oUl.offsetLeft){
+					iNow--;
+					if ( iNow < 0 ) iNow = 0;
+				}else{
+					iNow++;
+					if ( iNow === oUl.getElementsByTagName("li").length ) iNow = oUl.getElementsByTagName("li").length - 1;
+				}
+			}
+			flex( oUl, "left", -iNow * oUl.getElementsByTagName('li')[0].offsetWidth);
+			this.onmousemove = null;
+			this.onmouseup = null;
+		}
+	return false;
+	}
+
+function flex( obj, attr, target ){
+
+	clearInterval( obj.timer );
+	var iSpeed = 0;
+	var active = 0;
+	obj.timer = setInterval( function(){
+		var current = parseInt( window.getComputedStyle( obj, null )[ attr ] );
+		iSpeed += ( target - current ) / 5;
+		iSpeed *= 0.7;
+		active = current + iSpeed;
+		if ( Math.abs( target - active ) < 1 && Math.abs( iSpeed ) < 1 ){
+			clearInterval( obj.timer );
+			active = target;
+		}
+		obj.style[ attr ] = active + "px";
+	}, 30 );
+}
+
+};
+
+
+
+
+</script>
+</head>
+
+<body>
+
+<div id="iphone">
+	<div id="wrap">
+		<ul>
+			<li style="background:url(images/pic1.png);" title="妙味课堂"></li>
+			<li style="background:url(images/pic2.png);" title="妙味课堂"></li>
+			<li style="background:url(images/pic3.png);" title="妙味课堂"></li>
+			<li style="background:url(images/pic4.png);" title="妙味课堂"></li>
+		</ul>
+	</div>
+</div>
+
+</body>
+</html>

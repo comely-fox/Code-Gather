@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+
+var Jsonp = function ( url, callback ) {
+    const 
+        callbackName = 'Callback' + (new Date()).getTime() + Math.random().toString().substring(2),
+        oScript = document.createElement('script');
+
+    window[ callbackName ] = function ( data ){
+        
+        callback( data );
+        delete window[ callbackName ];
+        document.body.removeChild( oScript );
+    };
+    url += url.indexOf( '?' ) === -1 ? '?' : '&';
+    url += `callback=${callbackName}`;
+    oScript.src = url;
+    document.body.appendChild( oScript );
+};
+
+
+Jsonp( 'http://localhost:3001/', function ( data ) {
+
+console.log( data );
+});    
+Jsonp( 'http://localhost:3002/', function ( data ) {
+
+console.log( data );
+}); 
+
+
+
+</script>
+</body>
+</html>

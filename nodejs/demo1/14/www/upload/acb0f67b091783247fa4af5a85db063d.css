@@ -1,0 +1,142 @@
+*{margin:0;padding:0;list-style:none;text-decoration:none;}
+	  .header,.log1,.content{display:inline-block;}
+		body{
+			width:100%;
+			height:500%;
+			overflow: hidden;
+		}
+		body #main{
+			position:absolute;
+			top:0;/*有没有都可以*/
+			width:100%;
+			height:500%;/*不能修改*/
+		}
+		body #main li{
+			width:100%;
+			height:20%;/*不能修改*/
+      background-size: 100% 100%;
+		}
+		ol{width:50px;height:100px;position: fixed;right:30px;bottom:50%;}
+		ol li{width:20px;height:20px;text-align: center;margin:10px;background:white;cursor:pointer;border-radius:50%;}
+    .list1{
+      text-align: center;
+    }
+		body #main .list1 .img1{
+          width:765px;
+          height:190px;
+          margin:200px auto;
+		}
+	  #main .list1  .header{
+	   	width:100%;
+	   	height:70px;
+	   	background-color:#231815;
+	   	position: fixed;
+	   	top:0;
+      left:0;
+	   	opacity:0.8;
+	   }
+		#main .list1 .nav .log1{
+      position: relative;
+      top:15%;
+			height:70px;
+			line-height:70px;
+			
+		}
+		#main .list1 .nav .content{ 
+			margin-left: 80px;
+		  height:70px;
+		  line-height:70px;
+		}
+		#main .list1 .nav .content a{
+			margin-left: 10px;
+			color:white;
+			display: inline-block;
+			height:70px;
+		}
+		.title1{width:66px;text-align: center;background-image: url(images/下划线.png);}
+		.nav{
+			margin:0 auto;
+			width:1000px;
+			height:70px;
+		}
+    .list2{
+      text-align: center;
+    }
+    #main .list2 .img2{
+      width:720px;
+      height:540px;
+      margin:100px auto;
+   }
+   #main .list3 .titile2{
+      text-align: center;
+      height:300px;
+      line-height: 300px;
+      font-size: 60px;
+      font-weight: bold;
+      letter-spacing:2px;
+      font-family:'宋体';
+      color:#2C2B2B;
+     }
+
+    .list3 #box3{
+      position: relative;
+      width:940px;
+      height:265px;
+      overflow: hidden;
+      margin:0 auto;
+     }
+    #box3 .ol31{
+      width:500%;
+      position: absolute;
+      top:0;
+      left:0;
+     }
+   .list3 #box3 .ol31 li{
+      width:270px;
+      height:265px;
+      float:left;
+      margin-left: 40px;
+     }
+    #left,#right{
+      width:23px;
+      height:20px;
+    }
+    #left{
+      position: absolute;
+      top:50%;
+      left:190px;
+     }
+    #right{
+      position: absolute;
+      top:50%;
+      right:190px;
+    }
+   .box4{
+    	width:100%;
+    	height:205px;
+    	position:absolute;
+    	bottom:20%;
+    	background-color: #272016;
+      opacity :0.9;
+     }
+    .box4-1{text-align: center;}
+    .box4-1 li{
+    	display: inline;
+    	width:20%;
+    	height:205px;
+    	background-size:100% 100%;
+      }
+    .photo1{background-color:#d37425;}
+    .photo2{opacity: 0.2}
+    .photo5{/*第五章图的css*/
+    	position:absolute;
+    	bottom: 10%;
+    	left:15%;
+      }
+    .photo51{
+   	position:absolute;
+     	bottom:80px;
+     	right:150px;
+     }
+    .red{background-color: red;}
+    .white{}

@@ -1,0 +1,187 @@
+<script>
+var publisher = {
+        subscribers: {
+            'any': []
+        },
+        subscribe: function(fn, type){
+            var type = type || 'any';
+            if(typeof this.subscribers[type] === 'undefined'){
+                this.subscribers[type] = [];
+            }
+            this.subscribers[type].push(fn);
+        },
+        unsubscribe: function(fn, type){
+            this.visitSubscribers('unsubscribe', fn, type);
+        },
+        publish: function(publication, type){
+            this.visitSubscribers('publish', publication, type);
+        },
+        visitSubscribers: function(action, arg, type){
+            var type = type || 'any';
+            if(typeof this.subscribers[type] === 'undefined'){
+                this.subscribers[type] = [];
+            }
+            for(var i=0, len = this.subscribers[type].length; i<len; i++){
+                if(action === 'unsubscribe'){
+                    if(this.subscribers[type][i] === arg){
+                        this.subscribers[type].splice(i,1);
+                    }
+                } else {
+                    this.subscribers[type][i](arg);
+                }
+            }
+        }
+    };
+
+    function makePublisher(obj){
+        var i;
+        for(i in publisher){
+            if(publisher.hasOwnProperty(i)  && typeof publisher[i] === 'function'){
+                obj[i] = publisher[i];
+            }
+        }
+        obj['subscribers'] = {'any':[]};
+    }
+
+    var paper = {
+        daily: function(news){
+            this.publish(news);
+        },
+        monthly : function(news){
+            this.publish(news, 'monthly');
+        }
+    }
+    makePublisher(paper);
+
+    var Jack = {
+        drinkCoffee: function(publication){
+            console.log('Jack read '+ publication +' while drinking coffe');
+        },
+        watchTV : function(publication){
+            console.log('Jack read ' + publication + ' while watching TV');
+        }
+    }
+    var Amy = {
+        AmyDrinkCoffee: function(publication){
+            console.log('Amy read '+ publication +' while drinking coffe');
+        },
+        AmyWatchTV : function(publication){
+            console.log('Amy read ' + publication + ' while watching TV');
+        }
+    }
+
+    paper.daily();
+    paper.monthly();
+    paper.subscribe(Jack.drinkCoffee);
+    paper.subscribe(Jack.watchTV, 'monthly');                                                           
+    paper.subscribe(Amy.AmyDrinkCoffee, 'monthly');
+    paper.subscribe(Amy.AmyWatchTV);
+
+    console.log('paper发布daily');
+    paper.daily(' today is Sunday ');       //Jack read  today is Sunday  while drink coffe  
+                                            //Amy read  today is Sunday  while watch TV 
+    console.log('paper发布monthly');
+    paper.monthly(' this month is Aug. ');  //Jack read  this month is Aug.  while drink coffe
+                                            //Amy read  this month is Aug.  while watch TV
+    console.log('Amy取消了monthly的订阅');
+
+    paper.unsubscribe(Amy.AmyWatchTV);
+    paper.daily(' today is Friday ');           //Jack read  today is Friday  while drinking coffe
+    paper.monthly(' next weekend is Sept. ');   //Jack read  next weekend is Sept.  while watching TV
+                                                //Amy read  next weekend is Sept.  while drinking coffe
+
+function Publisher(subscribers){
+            this.subscribers = subscribers || {'any': []};
+            Publisher.prototype.subscribe = function(fn, type){
+                var type = type || 'any';
+                if(typeof this.subscribers[type] === 'undefined'){
+                    this.subscribers[type] = [];
+                }
+                this.subscribers[type].push(fn);
+            };
+            Publisher.prototype.unsubscribe = function(fn, type){
+                var type = type || 'any';
+                for(var i=0, len = this.subscribers[type].length;  i<len; i++){
+                    if(this.subscribers[type][i] === fn){
+                        this.subscribers[type].splice(i,1);
+                    }
+                }
+            };
+            Publisher.prototype.publish = function(publication, type){
+                var type = type || 'any';
+                for(var i=0, len = this.subscribers[type].length; i<len; i++){
+                    this.subscribers[type][i](publication);
+                }
+            };
+        }
+
+
+        var paper = new Publisher();
+        paper.daily = function(){
+            this.publish(' this is Olympic ! ');
+        };
+        paper.monthly = function(){
+            this.publish(' last month is the 28th Olympic! ', 'monthly');
+        };
+
+        var Jack = {
+            readInMorning: function(news){
+                console.log('Jack reads ' + news + ' in the morning');
+            },
+            readInSunday: function(news){
+                console.log('Jack reads ' + news + ' on Sunday');
+            }
+        };
+
+        var Amy = {
+            readInMorning: function(news){
+                console.log('Amy reads ' + news + ' in the morning');
+            },
+            readInSunday: function(news){
+                console.log('Amy reads ' + news + ' on Sunday');
+            }
+        };
+
+        paper.subscribe(Jack.readInMorning);
+        paper.subscribe(Jack.readInSunday, 'monthly');
+        paper.subscribe(Amy.readInMorning);
+        paper.subscribe(Amy.readInSunday, 'monthly');
+
+        paper.daily();          //Jack reads  this is Olympic !  in the morning
+                                //Amy reads  this is Olympic !  in the morning
+        paper.monthly();        //Jack reads  last month is the 28th Olympic!  on Sunday
+                                //Amy reads  last month is the 28th Olympic!  on Sunday
+
+        paper.unsubscribe(Jack.readInSunday,'monthly');
+        paper.daily();              //Jack reads  this is Olympic !  in the morning
+                                    //Amy reads  this is Olympic !  in the morning
+        paper.monthly();            //Amy reads  last month is the 28th Olympic!  on Sunday												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+</script>

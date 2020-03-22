@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+<style>
+body{
+	overflow: hidden;
+}
+*{
+	padding:0;
+	margin:0;
+}
+.box{
+	position: relative;
+	max-width:1200px;
+	margin: 50px auto;
+}
+.box li{
+	float: left;
+	width:25%;
+	padding:1.25%;
+	left:0;
+	top:0;
+	list-style-type: none;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+.box .active{
+	margin-top: 6px;
+	border-radius: 5px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, .8);
+}
+.anmi li{
+	transition: all .2s;
+}
+.anmi .drag{
+	transition: all 0s;
+}
+.box li img{
+	box-shadow: 0 4px 10px rgba(0, 0, 0, .35);
+	border-radius: 5px;
+	width:100%;
+	height:100%;
+}
+</style>
+<script>
+window.onload = function(){
+	var oBox     = document.getElementsByClassName("box")[0];
+	var aLis     = oBox.getElementsByTagName("li");
+	var aImgs     = oBox.getElementsByTagName("img");
+	var len      = aLis.length;
+	var position = new Array();
+	
+	// resize
+	var flg = true;
+	var wscale = 0;
+	var hscale = 0;
+	var wImgScale = 0;
+	var hImgScale = 0;
+	var arr = [0];
+	// -->结束
+	
+	 
+	// 拖拽
+	var dragArr = new Array();
+	var minZindex = 2;
+setSize()
+window.onresize=function(){
+	setSize()
+}
+
+// 页面自适应和转换布局定位
+function setSize(){
+	var liWidth = aLis[0].offsetWidth;
+	var liHeight = aLis[0].offsetHeight;
+
+	var imgWidth = aImgs[0].offsetWidth;
+	var imgHeight = aImgs[0].offsetHeight;
+
+	var htmlHeight = document.documentElement.offsetHeight;
+	var clientHeight = document.documentElement.clientHeight;
+	var clientWidth = document.documentElement.clientWidth;
+	if (flg){
+
+		// 计算出初始比例
+		wscale = imgWidth / liWidth;
+		hscale = imgHeight / imgWidth;
+		if (clientWidth > 1200){
+			clientWidth = 1200;
+		}
+		wImgScale = aImgs[0].offsetWidth / clientWidth;
+		hImgScale = aImgs[0].offsetHeight / htmlHeight;
+	}
+	flg = false;
+
+	arr.push(clientWidth);
+	if (arr.length > 1){
+		var a = arr[arr.length-2];
+		var b = arr[arr.length-1];
+		arr = arr.slice(arr.length-2,2);
+	}
+	// console.log(arr)
+	if ( a != b ){
+		oBox.style.width = "auto";
+		for(var i=0;i<len;i++){
+			aImgs[i].style.width = clientWidth*wImgScale + "px";
+			aImgs[i].style.height = clientWidth*wImgScale *  hscale+ "px";
+		}
+	}else{
+		for(var i=0;i<len;i++){
+			aImgs[i].style.height = clientHeight*hImgScale+ "px";
+			aImgs[i].style.width =clientHeight*hImgScale/hscale + "px";
+		}
+		oBox.style.width = ((clientHeight*hImgScale/hscale) / wscale ) * 4 + "px"
+	}
+
+	// 1200 最大布局时候的最大宽高
+	for(var j=0;j<len;j++){
+		if (aImgs[j].offsetHeight > 163){
+			aImgs[j].style.height = 163 + "px"
+		}
+		if (aImgs[j].offsetWidth > 270){
+			aImgs[j].style.width = 270 + "px"
+		}
+	}
+
+	// 布局调整
+	for(var i=0;i<len;i++){
+
+		aLis[i].style.position = "static";
+		position[i] = {
+			"left": aLis[i].offsetLeft,
+			"top" : aLis[i].offsetTop
+		};
+	}
+	for(var i=0;i<len;i++){
+		aLis[i].style.left = position[i].left + "px";
+		aLis[i].style.top = position[i].top + "px";
+		aLis[i].style.position = "absolute";
+	}
+}
+	for(var i=0;i<len;i++){
+		aLis[i].index = i;
+		// dragArr[i] = {
+		// 	"left": aLis[i].offsetLeft,
+		// 	"top" : aLis[i].offsetTop
+		// };
+		setDrag(aLis[i]);
+	}
+// 拖拽
+var eles = null;
+function setDrag(obj){
+	obj.onmousedown = function(ev){
+		var ev = ev || window.event;
+		var disX = ev.clientX-obj.offsetLeft;
+		var disY = ev.clientY-obj.offsetTop;
+
+		obj.style.zIndex = minZindex++;
+		obj.parentNode.className = "box anmi";
+
+		for(var i=0;i<len;i++){
+			aLis[i].className = "";
+		}
+		obj.className = "drag";
+		// console.log(obj.index)
+		// var back = Array.prototype.slice.call(position,0);
+
+		document.onmousemove=function(ev){
+			var ev = ev || window.event;
+			var x = ev.clientX-disX;
+			var y = ev.clientY-disY;
+			obj.style.left = x + "px";
+			obj.style.top = y + "px";
+			/*for(var i=0;i<len;i++){
+				if (obj === aLis[i]) continue;
+				if (CollisionDetection(obj,aLis[i])){
+					aImgs[i].className = "active drag";
+				}
+			}*/
+			for(var i=0;i<len;i++){
+				aLis[i].className = "";
+			}
+			obj.className = "drag";
+		
+
+			var oNear = find(obj);
+			if (oNear){
+				oNear.className = "active"
+			}
+		};
+		document.onmouseup=function(){
+			this.onmousemove = null;
+			this.onmouseup = null;
+			var oNear = find(obj);
+			obj.className = "";
+
+			if (oNear){
+				var indexArr = [];
+				eles = eles ||  Array.prototype.slice.apply(aLis);
+				var backElesArr = eles.slice(0);
+				// console.log(oNear.index,obj.index)
+				var hot = oNear.index;
+				for(var i=0;i<len;i++){
+					if (oNear.index > obj.index){
+						if (i <= oNear.index){
+							if (i <= obj.index){
+								 continue;
+							};
+							var ind = i-1;
+							eles[i].style.top = position[ind].top + "px";
+							eles[i].style.left = position[ind].left + "px";
+							backElesArr[ind] = eles[i];
+							eles[i].index = ind;
+						}
+					}else if (oNear.index < obj.index){
+						if (i < obj.index){
+							if (i < oNear.index){
+								 continue;
+							};
+							var ind = i+1;
+							eles[i].style.top = position[ind].top + "px";
+							eles[i].style.left = position[ind].left + "px";
+							backElesArr[ind] = eles[i];
+							eles[i].index = ind;
+						}
+
+					}
+				}
+				backElesArr[hot].className = "";
+				backElesArr[hot] = obj;
+
+				obj.index = hot ;
+				
+				obj.style.top = position[hot].top + "px";
+				obj.style.left = position[hot].left + "px";
+				eles = backElesArr;
+
+			}else{
+				obj.style.top = position[obj.index].top + "px";
+				obj.style.left = position[obj.index].left + "px";
+			}
+
+		};
+		return false;
+	};
+}
+
+// 碰撞检测
+function CollisionDetection(obj1,obj2){
+	var wCenter = obj1.offsetWidth / 2;
+	var hCenter = obj1.offsetHeight / 2;
+
+
+	var l1 = obj1.offsetLeft+wCenter;
+
+	var t1 = obj1.offsetTop+hCenter;
+
+	var l2 = obj2.offsetLeft;
+	var r2 = obj2.offsetLeft+obj2.offsetWidth;
+	var t2 = obj2.offsetTop;
+	var b2 = obj2.offsetTop+obj2.offsetHeight;
+
+
+	if (l1 < l2 || t1 < t2 || l1 > r2 || t1 > b2){
+		return false;
+	}else{
+		return true;
+	}
+}
+
+function find(obj){
+	var index = -1;
+	for(var i=0;i<len;i++){
+		if (obj===aLis[i]) continue;
+		if (CollisionDetection(obj,aLis[i])){
+			index = i;
+		}
+	}
+	if (index === -1){
+		return null;
+	}else{
+		return aLis[index];
+	}
+}
+};
+
+
+
+</script>
+</head>
+<body>
+<ul class="box">
+	<li><img src="imgs/1.png" alt=""></li>
+	<li><img src="imgs/2.png" alt=""></li>
+	<li><img src="imgs/3.png" alt=""></li>
+	<li><img src="imgs/4.png" alt=""></li>
+	<li><img src="imgs/5.png" alt=""></li>
+	<li><img src="imgs/6.png" alt=""></li>
+	<li><img src="imgs/7.png" alt=""></li>
+	<li><img src="imgs/8.png" alt=""></li>
+	<li><img src="imgs/9.png" alt=""></li>
+	<li><img src="imgs/10.png" alt=""></li>
+	<li><img src="imgs/11.png" alt=""></li>
+	<li><img src="imgs/12.png" alt=""></li>
+</ul>
+
+</body>
+</html>

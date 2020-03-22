@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>图片预加载</title>
+	<meta charset="utf-8">
+<style>
+*{
+	padding:0;
+	margin:0;
+	list-style: none;
+}
+.box{
+	width:1000px;
+	margin: 40px auto;
+	overflow: hidden;
+}
+.box ul {
+	margin-right:-10px;
+}
+.box li{
+	float: left;
+	margin:10px 10px 0 0;
+	width:495px;
+	height:280px;
+	overflow: hidden;
+}
+.box ul img{
+	width:100%;
+
+}
+</style>
+<script>
+window.onload = function(){
+	var oBox = document.querySelector(".box"),
+		body = document.body,
+		copyBody = body.innerHTML,
+		total = 80,
+		iBheight = oBox.offsetHeight,
+		iClientHeight = document.documentElement.clientHeight,
+		iPageHeight = document.documentElement.offsetHeight;
+
+	if (iPageHeight < iClientHeight){
+		var con = mainContext(1)();
+	}
+
+	this.onscroll = function(){
+		var iScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+		iPageHeight = document.documentElement.offsetHeight;
+		if (iScrollTop + iClientHeight >= iPageHeight){
+			con();
+		}
+	};
+
+	function mainContext(i){
+		var len = i * 4, last = len, flg = true;
+		return function(){
+			var oText = null,
+				oImg = null;
+			if ( last < total){
+				body.innerHTML += copyBody;
+				oText = document.querySelectorAll("span")[i];
+				oText.innerHTML = ++i;
+
+				last = len;
+				len = i * 4;
+				for (last; last < len; last++){
+					oImg = document.querySelectorAll("img")[last];
+					oImg.src = (last+1) + ".jpg";
+				}
+			}else{
+				if (flg) body.innerHTML += '<p style="font-size:36px;color:red;text-align:center;">已经到底了</p>';
+				flg = false;
+			}
+			return arguments.callee;
+		};
+	}
+};
+</script>
+</head>
+<body>
+<div class="box">
+	<h2>欣赏下图片 (<span>1</span>)</h2>
+	<ul>
+		<li><img src="1.jpg" alt=""></li>
+		<li><img src="2.jpg" alt=""></li>
+		<li><img src="3.jpg" alt=""></li>
+		<li><img src="4.jpg" alt=""></li>
+	</ul>
+</div>
+</body>
+</html>

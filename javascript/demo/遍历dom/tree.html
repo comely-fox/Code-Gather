@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  <meta name="keywords" content="扫描dom树" />
+  <meta key="description" content="简单的小demo" />
+  <meta key="author" content="comely-fox" />
+  <title>tree</title>
+</head>
+
+<body>
+  <header>header &lt;我也是个节点, 叫文本节点&gt;</header>
+  <main>
+    <h1>
+      主要内容&lt;我与b是兄弟关系&gt;
+      <b>DOM</b>
+    </h1>
+    <section>
+      <h1>区段标题</h1>
+      <div>
+        firtChild - nodeType: 3
+        <p>我是一段描述性的段落</p>
+      </div>
+      <div>
+        不知道该写点什么呢？
+        </dvi>
+    </section>
+  </main>
+  <footer>footer节点中的文本节点</footer>
+
+  <script src="tree.js"></script>
+</body>
+
+</html>

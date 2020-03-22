@@ -1,0 +1,57 @@
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+nav {
+  margin: 0 auto;
+}
+
+nav {
+  width: 1210px;
+  height: 45px;
+  line-height: 45px;
+  background-color: #2C2426;
+}
+nav a {
+  color: #FFF;
+  font-size: 14px;
+}
+.u-m-list {
+  position: relative;
+  height: 100%;
+}
+.u-m-list .u-m-item {
+  float: left;
+  height: 100%;
+}
+.u-m-list .u-m-item a {
+  color: #FFF;
+  display: block;
+  padding-left: 15px;
+}
+.u-m-list .u-m-item:hover a {
+  color: red;
+}
+.u-m-list .u-m-item:hover .u-m-content {
+  display: block;
+}
+.u-m-list .u-m-item .u-m-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 1210px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+}
+.u-m-list .u-m-item .u-m-content a {
+  display: block;
+  color: #666;
+}
+
+/*# sourceMappingURL=common.css.map */

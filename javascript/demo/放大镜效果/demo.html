@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>小侄儿  放大镜</title>
+<style type="text/css">
+
+#div1 { width: 200px; height: 200px; padding: 5px; border: 1px solid #ccc; position: relative; #ccc; }
+
+#div1 .small_pic { width: 200px; height: 200px; background: #eee; position: relative; }
+#div1 .float_layer { width: 50px; height: 50px; border: 1px solid #000; background: #fff; filter: alpha(opacity: 30); opacity: 0.3; position: absolute; top: 0; left: 0; display:none; }
+#div1 .mark {width:100%; height:100%; position:absolute; z-index:2; left:0px; top:0px; background:red; filter:alpha(opacity:0); opacity:0;}
+#div1 .big_pic { position: absolute; top: -1px; left: 215px; width:250px; height:250px; overflow:hidden; border:2px solid #CCC; display:none; }
+#div1 .big_pic img { position:absolute; top: -30px; left: -80px; }
+</style>
+<script type="text/javascript">
+window.onload = function(){
+	var oDiv = document.getElementById("div1"),
+		oMark = oDiv.getElementsByClassName("mark")[ 0 ],
+		oSmall = oDiv.getElementsByClassName("small_pic")[ 0 ],
+		oFloatLayer = oDiv.getElementsByClassName("float_layer")[ 0 ],
+		oBig = oDiv.getElementsByClassName("big_pic")[ 0 ],
+		oBigImg = oBig.getElementsByTagName("img")[ 0 ];
+	oMark.onmouseover = function(){
+		oFloatLayer.style.display = "block";
+		oBig.style.display = "block";
+	};
+	oMark.onmouseout = function(){
+		oFloatLayer.style.display = "none";
+		oBig.style.display = "none";
+	};
+
+	oMark.onmousemove = function( ev ){
+		var oEvent = ev || event;
+		var x = oEvent.clientX - oDiv.offsetLeft - oSmall.offsetLeft - oFloatLayer.offsetWidth / 2;
+		var y = oEvent.clientY- oDiv.offsetTop - oSmall.offsetTop - oFloatLayer.offsetHeight / 2;
+		
+
+		if ( x < 0 ){
+			x = 0;
+		}else if ( x > this.offsetWidth - oFloatLayer.offsetWidth ){
+			x = this.offsetWidth - oFloatLayer.offsetWidth;
+		}
+
+		if ( y < 0 ){
+			y = 0;
+		}else if ( y > this.offsetHeight - oFloatLayer.offsetHeight ){
+			y = this.offsetHeight - oFloatLayer.offsetHeight
+		}
+
+		var xScale = x / ( this.offsetWidth - oFloatLayer.offsetWidth );
+		var yScale = y / ( this.offsetHeight - oFloatLayer.offsetHeight );
+
+		oFloatLayer.style.left = x + "px";
+		oFloatLayer.style.top = y + "px";
+		oBigImg.style.left = -xScale * ( oBigImg.offsetWidth - oBig.offsetWidth ) + "px";
+		oBigImg.style.top =  -yScale * ( oBigImg.offsetHeight - oBig.offsetHeight ) + "px";
+	}
+};
+
+
+</script>
+</head>
+
+<body>
+
+<div id="div1">
+
+    <div class="small_pic">
+		<span class="mark"></span>
+        <span class="float_layer"></span>
+        <img src="images/small.png" longdesc="http://www.miaov.com" />
+    </div>
+
+    <div class="big_pic">
+		<img src="images/big.png"  longdesc="http://www.miaov.com" />
+	</div>
+
+</div>
+
+</body>
+</html>

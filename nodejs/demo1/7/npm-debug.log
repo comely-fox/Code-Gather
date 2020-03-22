@@ -1,0 +1,86 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'test33333' ]
+2 info using npm@3.10.10
+3 info using node@v6.14.1
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly fetchPackageMetaData test33333
+8 silly fetchNamedPackageData test33333
+9 silly mapToRegistry name test33333
+10 silly mapToRegistry using default registry
+11 silly mapToRegistry registry https://registry.npmjs.org/
+12 silly mapToRegistry data Result {
+12 silly mapToRegistry   raw: 'test33333',
+12 silly mapToRegistry   scope: null,
+12 silly mapToRegistry   escapedName: 'test33333',
+12 silly mapToRegistry   name: 'test33333',
+12 silly mapToRegistry   rawSpec: '',
+12 silly mapToRegistry   spec: 'latest',
+12 silly mapToRegistry   type: 'tag' }
+13 silly mapToRegistry uri https://registry.npmjs.org/test33333
+14 verbose request uri https://registry.npmjs.org/test33333
+15 verbose request no auth needed
+16 info attempt registry request try #1 at 15:30:24
+17 verbose request using bearer token for auth
+18 verbose request id 68c1cc9f886f068a
+19 http request GET https://registry.npmjs.org/test33333
+20 http 200 https://registry.npmjs.org/test33333
+21 verbose headers { 'content-type': 'application/json; charset=UTF-8',
+21 verbose headers   server: 'UploadServer',
+21 verbose headers   'cache-control': 'max-age=300',
+21 verbose headers   'last-modified': 'Tue, 8 May 2018 7:29:34 GMT',
+21 verbose headers   etag: '"5af151de-1c1"',
+21 verbose headers   'x-npm-region': 'Asia',
+21 verbose headers   'content-encoding': 'gzip',
+21 verbose headers   'content-length': '255',
+21 verbose headers   'accept-ranges': 'bytes',
+21 verbose headers   date: 'Tue, 08 May 2018 07:30:32 GMT',
+21 verbose headers   via: '1.1 varnish',
+21 verbose headers   age: '0',
+21 verbose headers   connection: 'keep-alive',
+21 verbose headers   'x-served-by': 'cache-nrt6151-NRT',
+21 verbose headers   'x-cache': 'MISS',
+21 verbose headers   'x-cache-hits': '0',
+21 verbose headers   'x-timer': 'S1525764632.514094,VS0,VE553',
+21 verbose headers   vary: 'Accept-Encoding, Accept' }
+22 silly get cb [ 200,
+22 silly get   { 'content-type': 'application/json; charset=UTF-8',
+22 silly get     server: 'UploadServer',
+22 silly get     'cache-control': 'max-age=300',
+22 silly get     'last-modified': 'Tue, 8 May 2018 7:29:34 GMT',
+22 silly get     etag: '"5af151de-1c1"',
+22 silly get     'x-npm-region': 'Asia',
+22 silly get     'content-encoding': 'gzip',
+22 silly get     'content-length': '255',
+22 silly get     'accept-ranges': 'bytes',
+22 silly get     date: 'Tue, 08 May 2018 07:30:32 GMT',
+22 silly get     via: '1.1 varnish',
+22 silly get     age: '0',
+22 silly get     connection: 'keep-alive',
+22 silly get     'x-served-by': 'cache-nrt6151-NRT',
+22 silly get     'x-cache': 'MISS',
+22 silly get     'x-cache-hits': '0',
+22 silly get     'x-timer': 'S1525764632.514094,VS0,VE553',
+22 silly get     vary: 'Accept-Encoding, Accept' } ]
+23 verbose get saving test33333 to C:\Users\Administrator\AppData\Roaming\npm-cache\registry.npmjs.org\test33333\.cache.json
+24 verbose correctMkdir C:\Users\Administrator\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+25 verbose stack TypeError: Cannot convert undefined or null to object
+25 verbose stack     at pickVersionFromRegistryDocument (C:\Program Files\nodejs\node_modules\npm\lib\fetch-package-metadata.js:125:29)
+25 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\iferr\index.js:13:50
+25 verbose stack     at C:\Program Files\nodejs\node_modules\npm\lib\utils\pulse-till-done.js:20:8
+25 verbose stack     at saved (C:\Program Files\nodejs\node_modules\npm\lib\cache\caching-client.js:174:7)
+25 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\graceful-fs\polyfills.js:241:18
+25 verbose stack     at FSReqWrap.oncomplete (fs.js:123:15)
+26 verbose cwd D:\Git_warehouse\nodeJs\7
+27 error Windows_NT 10.0.16299
+28 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "test33333"
+29 error node v6.14.1
+30 error npm  v3.10.10
+31 error Cannot convert undefined or null to object
+32 error If you need help, you may report this error at:
+32 error     <https://github.com/npm/npm/issues>
+33 verbose exit [ 1, true ]

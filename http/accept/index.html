@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<!-- 
+    request - response  数据协商
+    
+    *** 互相对应的关系 ***
+    accept ->  Content-type   // 数据格式
+    Accept-Encoding -> Content-Encoding  // 压缩方式
+    Accept-Language -> Content-Language  // 语言
+
+ -->
+<h1>Welcome go to 中国</h1>
+<form id="f" action="http://localhost:3000/js" method="post" enctype="multipart/form-data">
+
+    <input type="file" name="file">
+    <input type="submit" value="提交">
+</form>
+<script>
+const f = document.querySelector('#f');
+f.addEventListener( 'submit', function(e) {
+    console.log( new FormData(f) )
+    fetch( f.getAttribute('action'), {
+
+        method: 'POST',
+        body: new FormData(f)
+    });
+    e.preventDefault();
+});
+</script>
+</body>
+</html>

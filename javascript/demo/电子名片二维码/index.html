@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="keywords" content="电子名片系统">
+	<meta name="description" content="这是一个电子名片系统">
+	<title>电子名片系统</title>
+	<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<style type="text/css">
+*{
+	margin:0;
+	padding:0;
+}
+#box{
+	width:830px;
+	height:300px;
+	background: #ccc;
+	margin:100px auto;
+}
+.info{
+	float: left;
+	width:480px;
+	height:300px;
+	background:#000;
+}
+#box .info ul li{
+	float: left;
+	width:240px;
+	height:30px;
+	line-height: 30px;
+	list-style:none;
+	margin:10px 0;
+}
+#box .info ul li span{
+	float: left;
+	width:45px;
+	text-indent:6px;
+	color:#FFF;
+	background:#333;
+}
+#box .info ul li input{
+	float: left;
+	height: 30px;
+	text-indent:5px;
+	border:0;
+	outline:0;
+}
+#box .qrcode{
+	float:right;
+	width:296px;
+	height:296px;
+	border:2px solid #c00;
+}
+#box .info ul li.create{
+	width:98%;
+	color:#FFF;
+	font-weight: bold;
+	text-align: center;
+	border-radius: 4px;
+	margin:20px 1%;
+	cursor:pointer;
+	background: #009999;
+}
+</style>
+</head>
+<body>
+<div id="box">
+	<div class="info">
+		<ul>
+			<li>
+				<span>名字</span>
+				<input id="name" type="text">
+			</li>
+			<li>
+				<span>公司</span>
+				<input id="company" type="text">
+			</li>
+			<li>
+				<span>职位</span>
+				<input id="title" type="text">
+			</li>
+			<li>
+				<span>地址</span>
+				<input id="address" type="text">
+			</li>
+			<li>
+				<span>手机</span>
+				<input id="mobile" type="text">
+			</li>
+			<li>
+				<span>邮箱</span>
+				<input id="email" type="text">
+			</li>
+			<li>
+				<span>网址</span>
+				<input id="web" type="text">
+			</li>
+			<li>
+				<span>备注</span>
+				<input id="desc" type="text">
+			</li>
+			<li class="create">
+				生成名片
+			</li>
+			<!-- <li><a href="mailto:owjfowf@qq.com">下载文件</a></li> -->
+		</ul>
+	</div>
+	<div class="qrcode" id="qrcode">
+
+	</div>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/qrcode.js"></script>
+	<script type="text/javascript">
+		var name,company,title,address,mobile,email,web,desc;
+		$(".create").click(function(){
+			$("#qrcode").empty();
+			name     = "BEGIN:VCARD \r\nFN:"+$("#name").val()+"\r\n";
+			company  = "ORG:"+$("#company").val()+"\r\n";
+			title    = "TITLE:"+$("#title").val()+"\r\n";
+			address  = "ADR;WORK:"+$("#address").val()+"\r\n";
+			mobile   = "TEL:"+$("#mobile").val()+"\r\n";
+			email    = "EMAIL:"+$("#email").val()+"\r\n";
+			web      = "URL:"+$("#web").val()+"\r\n";
+			desc     = "NOTE:"+$("#desc").val()+"\r\nEND:VCARD";
+			var info = name+company+title+address+mobile+email+web+desc;
+			console.log(info);
+			var qrcode = new QRCode(document.getElementById("qrcode"),{
+				width 	: 	296,
+				height 	: 	296
+			});
+			qrcode.makeCode(info);
+
+		});
+
+	</script>
+	<script type="text/javascript"></script>
+</div>
+</body>
+</html>

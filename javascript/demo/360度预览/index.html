@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>360度预览</title>
+<style>
+#prog, img{
+	position:absolute;
+	top:0;
+	left:0;
+	bottom: 0;
+	right: 0;
+	margin:auto;
+}
+img{
+	width: 640px;
+	height: 378px;
+}
+#bg{
+	position: absolute;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	filter:alpha(opacity:60);
+	opacity:.6;
+	background-color: black;
+}
+#prog{
+	width: 324px;
+	height: 40px;
+	text-align:center;
+	font-family:"arial";
+	font-size: 12px;
+	color:white;
+}
+#bar{
+	position: absolute;
+	left:2px;
+	bottom: 2px;
+	width: 0%;
+    height: 16px;
+    background: url(img/bar_line.gif) repeat-x;
+}
+</style>
+<script>
+window.onload = function(){
+
+	function id(string){
+		return document.getElementById(string);
+	}
+
+
+	var oImg = id("img1"),
+		oBg = id("bg"),
+		oProg = id("prog"),
+		oText = oProg.getElementsByTagName("span")[ 0 ],
+		oBar = id("bar"),
+		aImgs = [],
+		scale = 10,
+		loaded = 0,
+		total = 77,
+		iNow = 0,
+		i = 0;
+
+	for ( ; i < total; i++ ){
+		(function(i){
+			var oNewImg = new Image();
+			oNewImg.onload = function(){
+
+				loaded++;
+
+				oText.innerHTML = oBar.style.width = Math.ceil(100 * loaded / total ) + "%";
+
+				var oImg = document.createElement("img");
+				oImg.src = this.src;
+				oImg.style.display = "none";
+				document.body.appendChild(oImg);
+
+				aImgs[ i ] = oImg;
+
+				if ( loaded === total ) load();
+
+			};
+			oNewImg.src = "img/miaov (" + i + ").jpg"
+		})(i);
+	}
+
+
+	function load(){
+		var lastImg = null;
+
+		for ( i = 0; i < total; i++){
+			if ( !aImgs[ i ] ) alert( "资源加载失败，请刷新重试" );
+		}
+
+		oImg.parentNode.removeChild(oImg);
+		oImg = null;
+
+		oProg.style.display = oBg.style.display = "none";
+		lastImg = aImgs[ 0 ];
+		lastImg.style.display = "block";
+
+		var num = iNow;
+		var timer = null;
+		var speed = 0;
+
+		document.onmousedown = function( ev ){
+			var ev = ev || event;
+			var orgX = ev.clientX;
+			var lastX = orgX;
+			if (this.body.setCapture){
+				this.body.onmousemove = onMove;
+				this.body.onmouseup = onUp;
+
+				this.body.setCapture();
+			}else{
+				this.onmousemove = onMove;
+				this.onmouseup = onUp;
+			}
+
+			function onMove( ev ){
+				var ev = ev || event;
+				var i = -( ( ev.clientX - orgX ) / scale );
+
+				num = parseInt( ( iNow + i + Math.abs( Math.floor( i / total ) * total ) ) % total );
+
+				if ( lastImg !== aImgs[ num ] ){
+					lastImg.style.display = "none";
+					aImgs[ num ].style.display = "block";
+					lastImg = aImgs[ num ];
+				}
+
+				speed =  -( ( ev.clientX - lastX ) / scale );
+				lastX = ev.clientX;
+				return false;
+			}
+
+			function onUp(){
+				this.onmousemove = null;
+				this.onmouseup = null;
+
+				if (this.releaseCapture) this.releaseCapture();
+
+				iNow = num;
+
+				stratMove();
+			}
+
+
+			function stratMove(){
+				timer = setInterval( function(){
+					iNow = ( iNow + speed + Math.abs( Math.floor( i / total ) * total ) ) % total ;
+
+					lastImg.style.display = "none";
+					aImgs[ parseInt( iNow ) ].style.display = "block";
+					lastImg = aImgs[ parseInt( iNow ) ];
+
+					speed *= 0.884;
+					if (Math.abs( speed ) <= 1 ){
+						clearInterval(timer);
+						speed = 0;
+					}
+				}, 30 );
+			}
+			return false;
+		};
+	}
+};
+</script>
+</head>
+<body>
+<img id="img1" src="img/miaov (0).jpg" />
+<div id="bg"></div>
+<div id="prog">
+	妙味课堂——360度全景展示 载入中......<span>0%</span>
+	<div id="bar"></div>
+</div>
+</body>
+</html>

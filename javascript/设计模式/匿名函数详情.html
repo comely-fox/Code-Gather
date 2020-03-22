@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<script>
+	/*
+	var fn = function abc() { console.log( 'lt IE9' ); };
+	
+	console.log( typeof abc );
+	
+	abc();
+	*/
+	
+	/*
+	console.log( g );
+	
+	var fn = function g(){};
+	
+	*/
+	
+	/*
+	var f = function g(){};
+		f === g; // false
+		f.expando = 'foo';
+		g.expando; // undefined
+	*/
+	/*
+	(function(){
+		f = function f(){};
+	})();
+	
+	console.log( typeof f );
+	
+	function createFn(){
+    return (function(){
+      var f;
+      if (true) {
+        f = function F(){
+          return 'standard';
+        };
+      }
+      else if (false) {
+        f = function F(){
+          return 'alternative';
+        };
+      }
+      else {
+        f = function F(){
+          return 'fallback';
+        };
+      }
+      var F = null;
+      return f;
+    })();
+  }
+
+  var arr = [ ];
+  for (var i=0; i<1000000; i++) {
+    arr[i] = createFn();
+  }
+  
+  */
+  if (true) {
+    function() {
+      console.log( 'first' );
+    }
+  }
+  else {
+    function() {
+      console.log( 'second' );
+    }
+  }
+ 
+	</script>
+</body>
+</html>

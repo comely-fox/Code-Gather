@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<img src="./test.jpg" onerror=this.onerror=null;this.src='1.jpg'>
+<div field="imgUrl" width="120" align="center" data-options="function(imgUrl){return '<img src=/RecycleBinWeb/'+imgUrl+' height=30px class=priv-img onerror=this.onerror=null;this.src=\'/RecycleBinWeb/logo.png\' />'}">商品图</div>
+</body>
+<!-- 
+    http two  http2
+    =-------------*Begin------------=
+   
+    -信道复用
+    -分帧传输
+    -server push 服务端可以推送内容
+
+    只需要创建一个tcp连接, 并发的请求
+    =-------------*END------------=
+
+    http1.1
+    =-------------*Begin------------=
+    浏览器是并发的请求http连接，建立并行的tcp连接， 最多只能有6个tcp连接
+    如果http连接多过6过后面的连接要等待前面的请求完成
+
+    http1.1请求数据是串行的，后面要等待前面的请求结束
+    =-------------*END------------=
+
+ -->
+<script>
+
+</script>
+</html>

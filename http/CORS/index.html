@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+// { 浏览器http跨域请求的限制 }
+// CORS[访问控制] 跨域请求限制, 不是允许的header content-type method浏览器会发起预请求
+// method: [ GET, POST, HEAD ] 
+// content-type: [ application/x-www-form-urlencoded, multipart/form-data, text/plain]
+// headers: [ ]
+fetch('http://localhost:3001', {
+
+    method: 'GET',
+    headers: {
+
+        'X-HTML-SELF': true
+    }
+});
+</script>
+
+</html>

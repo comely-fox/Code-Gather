@@ -1,0 +1,61 @@
+<html>
+<head>
+</head>
+<body>
+
+<script>
+
+// 模拟后台返回的JSON
+var server = {
+	data: [ /* ... */ ],  // 后台返回的数据
+	pageNum: 0, // 当前页
+	pages : 10, // 总共多少页
+};
+
+// 前台默认的参数
+var defalut = {
+
+	pageNum: 1,
+	
+	pageRange: 4,
+	
+	pageSize: 6
+}
+
+// 加工一下后台的json
+function reworkOpts( opt ) {
+
+	var opts = {
+	
+		prevPage : opt.pageNum - 1,
+		nextPage : opt.pageNum + 1,
+		hasPrevPage: true,
+		hasNextPage: true,
+		pageNum: opt.pageNum,
+		pages: opt.pages,
+		data: opt.data
+	};
+
+	// 是否有上一页
+	if ( opts.pageNum <= 1 ) {
+	
+		opts.hasPrevPage = false;
+		opts.prevPage = 0;
+		
+	}
+	
+	if ( opts.pageNum >= opts.pages ) {
+
+		opts.hasNextPage = false;
+		opts.nextPage = 0;
+	}
+	
+	return opts;
+}
+
+console.log(reworkOpts( server ));
+
+
+</script>
+</body>
+</html>

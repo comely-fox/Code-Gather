@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+#d1{
+	position: absolute;
+	left: 0;
+	width: 100px;
+	height: 100px;
+	background-color: red;
+}
+#d2{
+	position: absolute;
+	top:0;
+	left:300px;
+	background: black;
+	width:1px;
+	height:300px;
+}
+</style>
+<script>
+window.onload = function(){
+	var oBtn = document.getElementById("i");
+	var oDiv1 = document.getElementById("d1");
+	var timer = null;
+	var iSpeed = 0;
+	var active = 0;
+	oBtn.onclick = function(){
+		clearTimeout(timer);
+		timer = setInterval( function(){
+			iSpeed += (300 - oDiv1.offsetLeft) / 5;
+			iSpeed *= 0.7;
+
+			active = oDiv1.offsetLeft + iSpeed;
+			if ( Math.abs(300 - active) < 1 && Math.abs(iSpeed) < 1){
+				active = 300;
+				clearInterval(timer);
+			}
+			oDiv1.style.left = active + "px";
+			console.log(iSpeed, oDiv1.offsetLeft)
+		}, 30 );
+	};
+};
+
+function rnd(min, max)
+{
+	return Math.floor(Math.random()*(max-min + 1))  + min;
+}
+
+var i = 0;
+var iFive = 0;
+var last = -1;
+setInterval( function(){
+
+	if ( i++ % 7 ){
+		iFive = last;
+	}else{
+		iFive = ( last + 1 ) % 5;
+		last = iFive;
+	}
+	console.log( iFive)
+}, 30);
+</script>
+</head>
+<body>
+<input type="button" id="i" value="运行">
+<div id="d1"></div>
+<div id="d2"></div>
+</body>
+</html>

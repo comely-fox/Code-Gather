@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+body{
+	overflow: hidden;
+}
+*{
+	padding:0;
+	margin:0;
+}
+.box{
+	max-width:1200px;
+	margin: 50px auto;
+}
+.box li{
+	float: left;
+	width:25%;
+	padding:1.25%;
+	list-style-type: none;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+.box li img{
+	box-shadow: 0 4px 10px rgba(0, 0, 0, .35);
+	border-radius: 5px;
+	width:100%;
+	height:100%;
+}
+</style>
+<script>
+window.onload = function(){
+	var oBox     = document.getElementsByClassName("box")[0];
+	var aLis     = oBox.getElementsByTagName("li");
+	var aImgs     = oBox.getElementsByTagName("img");
+	var len      = aLis.length;
+	var position = new Array();
+	// 布局转换
+	for(var i=0;i<len;i++){
+		// aLis[i].style.width = aLis[0].offsetWidth + "px";
+		// aLis[i].style.height = aLis[0].offsetHeight + "px";
+		position.push({
+			"left" : aLis[i].offsetLeft,
+			"top"  : aLis[i].offsetTop
+		});
+	}
+	// for(var i=0;i<len;i++){
+	// 	aLis[i].style.left = position[i].left + "px";
+	// 	aLis[i].style.top = position[i].top + "px";
+	// 	aLis[i].style.position = "absolute";
+	// }
+var flg = true;
+var wscale = 0;
+var hscale = 0;
+var wImgScale = 0;
+var hImgScale = 0;
+var arr = [0];
+setSize()
+window.onresize=function(){
+	setSize()
+}
+function setSize(){
+	var liWidth = aLis[0].offsetWidth;
+	var liHeight = aLis[0].offsetHeight;
+
+	var imgWidth = aImgs[0].offsetWidth;
+	var imgHeight = aImgs[0].offsetHeight;
+
+	var htmlHeight = document.documentElement.offsetHeight;
+	var clientHeight = document.documentElement.clientHeight;
+	var clientWidth = document.documentElement.clientWidth;
+	if (flg){
+
+		// 计算出初始比例
+		wscale = imgWidth / liWidth;
+		hscale = imgHeight / imgWidth;
+		if (clientWidth > 1200){
+			clientWidth = 1200;
+		}
+		wImgScale = aImgs[0].offsetWidth / clientWidth;
+		hImgScale = aImgs[0].offsetHeight / htmlHeight;
+	}
+	flg = false;
+
+	arr.push(clientWidth);
+	if (arr.length > 1){
+		var a = arr[arr.length-2];
+		var b = arr[arr.length-1];
+		arr = arr.slice(arr.length-2,2);
+	}
+
+	if ( a != b ){
+		oBox.style.width = "auto";
+		for(var i=0;i<len;i++){
+			aImgs[i].style.width = clientWidth*wImgScale + "px";
+			aImgs[i].style.height = clientWidth*wImgScale *  hscale+ "px";
+		}
+	}else{
+		for(var i=0;i<len;i++){
+			aImgs[i].style.height = clientHeight*hImgScale+ "px";
+			aImgs[i].style.width =clientHeight*hImgScale/hscale + "px";
+		}
+		oBox.style.width = ((clientHeight*hImgScale/hscale) / wscale ) * 4 + "px"
+	}
+
+	// 1200 最大布局时候的最大宽高
+	for(var j=0;j<len;j++){
+		if (aImgs[j].offsetHeight > 163){
+			aImgs[j].style.height = 163 + "px"
+		}
+		if (aImgs[j].offsetWidth > 270){
+			aImgs[j].style.width = 270 + "px"
+		}
+	}
+	// if (htmlHeight > clientHeight){
+	// 	for(var i=0;i<len;i++){
+	// 		aImgs[i].style.height =clientHeight*h+ "px";
+	// 		aImgs[i].style.width =clientHeight*h/hscale + "px";
+	// 	}
+	// 	oBox.style.width = ((clientHeight*h/hscale) / wscale ) * 4 + "px"
+	// }else{
+
+	// 	for(var i=0;i<len;i++){
+	// 		aImgs[i].style.height = clientHeight*h+ "px";
+	// 		aImgs[i].style.width =clientHeight*h/hscale + "px";
+	// 	}
+	// 	oBox.style.width = ((clientHeight*h/hscale) / wscale ) * 4 + "px"
+	// }
+}
+};
+
+</script>
+</head>
+<body>
+<ul class="box">
+	<li><img src="imgs/1.png" alt=""></li>
+	<li><img src="imgs/2.png" alt=""></li>
+	<li><img src="imgs/3.png" alt=""></li>
+	<li><img src="imgs/4.png" alt=""></li>
+	<li><img src="imgs/5.png" alt=""></li>
+	<li><img src="imgs/6.png" alt=""></li>
+	<li><img src="imgs/7.png" alt=""></li>
+	<li><img src="imgs/8.png" alt=""></li>
+	<li><img src="imgs/9.png" alt=""></li>
+	<li><img src="imgs/10.png" alt=""></li>
+	<li><img src="imgs/11.png" alt=""></li>
+	<li><img src="imgs/12.png" alt=""></li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+<script>
+
+$.createCache = function ( requestFunction ) {
+
+    const cache = {};
+    return function ( url, data, callback, alway ) {
+
+        if ( !cache[url] || alway ) {
+            cache[ url ] = $.Deferred( function ( def ) {
+                requestFunction( def, url, data );
+            }).promise();
+        }
+            
+        return cache[ url ].done( callback );
+    }
+}
+
+$.createCache = function ( requestFunction ){
+    var cache = {};
+    return function ( url, data, callback, alway ) {
+
+        if ( !cache[ url ] ) {
+
+            cache[ url ] = $.Deferred( function ( def ) {
+
+                requestFunction( url, data, def );
+            }).promise();
+        }
+        return cache[ url ].done( callback );
+    }
+};
+
+$.cacheAjax = $.createCache( function ( url, data, def ) {
+
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        method: 'get',
+        data: data
+    }).then( def.resolve, def.reject );
+});
+
+
+$.cacheAjax('http://localhost:3000/json.do', { name : '小红' }, function ( data ) {
+
+    console.log( data );
+});
+$.cacheAjax('http://localhost:3000/json.update', { name: '小红', age: 20}, function ( data ) {
+
+console.log( data );
+});
+$.cacheAjax('http://localhost:3000/json.do', { name : '小红' }, function ( data ) {
+
+console.log( data );
+});
+$.cacheAjax('http://localhost:3000/json.do', { name : '小红' }, function ( data ) {
+
+console.log( data );
+}, true);
+</script>
+</body>
+</html>

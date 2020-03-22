@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h1>Welcome go to 中国</h1>
+<div>This is content, and data is: <span id="data"></span></div>
+<button id="quest" onclick="request();">click me</button>
+</body>
+<script>
+let i = 0;
+var request = () => {
+    const oData = document.querySelector('#data');
+    oData.innerText = '';
+    
+    fetch('/data', {
+
+        headers: {
+
+            'agent': window.navigator.userAgent
+        }
+    }).then( response => {
+
+        return response.text();
+    }).then( text => {
+
+        oData.innerText = text;
+    });
+};
+
+</script>
+</html>

@@ -1,0 +1,17 @@
+http协议 是建立在tcp协议之上的 要经过tcp三次握手
+http报文 有首行, 头部，CRLF， 请求主体
+
+url地址不加www会自动转到浏览器内置的html
+里面含有
+<meta http-equiv="refresh" content="0" url="http://www.???/">
+refresh 更新 content 延迟时间 url 重定向地址
+
+
+
+
+1.客户端发起http请求(请求报文)
+	2.-> 经过三次握手 
+	3.-> 服务器把数据响应给客户端(响应报文)
+	4.-> 浏览器客户端把数据渲染出来
+	
+curl 命令可以发起的http请求

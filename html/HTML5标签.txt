@@ -1,0 +1,52 @@
+**********HTML5标签*****************
+== 文档和元数据元素==
+Doctype 
+  html
+	head { base, link, meta, noscript, script, style, title }
+	body 
+	
+==文本元素==
+	a, abbr, b, br, cite, code, dfn, 
+	em, i, ins, kbd, q, s, samp, small,
+	span, strong, sub, sup, u, var 
+	
+	--html5新增 
+		del, mark, rp, rt, ruby, time, wbr
+		
+==对内容分组的元素==
+	blockquote, div, dl, dt, dd, hr
+	ol, ul, li, p, pre
+	
+	--html5新增 
+		figcaption, figure
+
+==用于划分内容的元素==
+	h1, h2, h3, h4, h5, h6
+	
+	--html5新增
+		header, nav, footer, section, article
+		address, aside, details, summary, hgroup
+		
+==表格元素==
+	caption, col, colgroup, table, thead, tbody, tfood, tr, th, td
+	
+==表单元素==
+	form, button, input, label, option, fieldset, 
+	legend, optgroup, select, textarea
+	
+	--html5新增
+	
+		datalist ?, keygen, output
+		
+	
+==嵌入元素==
+	area, iframe, img, map, object, param
+	
+	
+	
+	--html5新增
+		audio, video, canvas, embed, meter, 
+		progress, source, svg, track
+		
+==未实现的元素==
+	command, menu

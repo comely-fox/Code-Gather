@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>简单工厂模式</title>
+</head>
+<body>
+<script>
+
+function Interface(name, methodNames) {
+    var len, name;
+    this.name = name;
+    this.methodNames = m = [];
+
+    if (arguments.length < 2) {
+
+        throw Error('参数不足');
+    }
+    len = methodNames.length;
+
+    for(; len--;) {
+
+        name = methodNames[len];
+        if (typeof name !== 'string') {
+
+            throw TypeError('必需是字符串类型');
+        }
+
+        m.push(name);
+    }
+}
+
+Interface.verification = function (object) {
+    var i = 1, 
+        j = 0,
+        it,
+        methodNames,
+        methodName,
+        length = arguments.length;
+    if (length < 2) {
+
+        throw Error('参数不足');
+    }
+
+    // 遍历接口实例
+    for(; i < length; i++) {
+
+        it = arguments[i];
+
+        // 检验是否是接口实例
+        if (!(it instanceof Interface)) {
+
+            throw  new Error("必须是Interface类型");
+        }
+
+        methodNames = it.methodNames;
+        j = methodNames.length;
+        while(j--) {
+
+            // 接口规定的方法
+            methodName = methodNames[j];
+
+            //object[methodName]传入的函数
+            //判断传入的函数是否与接口中规定的函数匹配
+            if (!object[methodName] || typeof object[methodName] !== 'function') {
+
+                throw  new Error("实现类中没有实现接口中的'"+ methodName +"'方法")
+            };
+        }
+    }
+
+}
+
+var Pet = new Interface('Pet', ['showName', 'showAge','skill']);
+
+
+
+
+var factoryPet = {
+    norm: {
+
+        'cat' : Cat,
+        'dog' : Dog,
+        'fish': Fish,
+        'bird': Bird
+    },
+    getPet: function (kind, name, age) {
+
+        var C = this.norm[kind],
+            instance;
+
+        if (!C) throw Error('没有定义实现类');
+        instance = new C(name, age);
+        // 核验接口方法与实现是否一致
+        Interface.verification(instance, Pet);
+        return instance;
+    }
+};
+
+
+
+
+function factoryPetShop() { }
+
+// 获取宠物公共原型方法
+factoryPetShop.prototype.getPet = function (kind, name, age){
+    return factoryPet.getPet(kind, name, age);
+};
+
+// 宠物基类
+function basePet(name, age) {
+
+    this.name = name;
+    this.age = age;
+}
+
+basePet.prototype.showName = function () {
+
+    document.write("kind: ",this.name, "<br/>");
+};
+
+basePet.prototype.showAge = function () {
+
+    document.write('Age: ',this.age, "<br/>");
+};
+
+function Cat(name, age) {
+    Cat.superClass.constructor.call(this, name, age);
+
+    this.skill = function () {
+
+        document.write("Skill: ",'小猫的独有有技能。。。', "<br/>");
+    }
+}
+
+function Bird(name, age) {
+    Cat.superClass.constructor.call(this, name, age);
+
+    this.skill = function () {
+
+        document.write("Skill: ",'小鸟的独有有技能。。。', "<br/>");
+    }
+}
+
+function Dog(name, age) {
+    Cat.superClass.constructor.call(this, name, age);
+
+    this.skill = function () {
+
+        document.write("Skill: ",'小狗的独有有技能。。。', "<br/>");
+    }
+}
+
+function Fish(name, age) {
+    Cat.superClass.constructor.call(this, name, age);
+
+    this.skill = function () {
+
+        document.write("Skill: ",'小鱼的独有有技能。。。', "<br/>");
+    }
+}
+
+
+function extend(subClass, superClass) {
+
+    function F(){ }
+    F.prototype = superClass.prototype;
+    subClass.prototype = new F();
+    subClass.prototype.constructor = subClass;
+    subClass.superClass = superClass.prototype;
+    if (superClass.prototype.constructor === Object) {
+
+        superClass.prototype.constructor = superClass;
+    }
+}
+
+
+// 继承基类
+extend(Cat, basePet);
+extend(Fish, basePet);
+extend(Bird, basePet);
+extend(Dog, basePet);
+
+
+
+var instance = new factoryPetShop();
+var pet = instance.getPet('cat', '小猫', '2岁');  // 从宠物商店获取宠物
+pet.showName();
+pet.showAge();
+pet.skill();
+
+
+
+
+
+</script>
+</body>
+</html>

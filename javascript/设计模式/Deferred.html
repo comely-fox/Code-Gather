@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<script src="Callbacks.js"></script>
+<script>
+
+console.log(Callbacks());
+
+function Deferred() {
+	'use strict';
+	var tuples = [
+	
+			// 发布, 订阅, 
+			[ 'resolve', 'done', Callbacks('once memory'), 'resolved' ],
+			[ 'reject', 'fail', Callbacks('once memory'), 'rejected' ],
+			[ 'notify', 'progress', Callbacks('once memory') ]
+		],
+		
+		state = 'pending',
+		
+		// 观察者
+		promise = {
+			state: function () {
+				return state;
+			},
+			
+			promise: function( obj ) {
+			
+				return obj != null ? Object.assign( obj, promise ) : promise;
+			}
+		},
+		deferred = {};
+
+	tuples.forEach( ( tuple, i ) => {
+
+		var list = tuple[ 2 ],
+			stateString = tuple[ 3 ];
+
+		// promise[ done | fail | progress ] = list.add
+		promise[ tuple[ 1 ] ] = list.add;
+		
+		// 处理状态
+		if ( stateString ) {
+		
+			// 添加3个预设的方法
+			list.add( function () {
+			
+				// state = [ resolved | rejected ]
+				state = stateString;
+
+			}, tuples[ i ^ 1 ][ 2 ].disable, tuples[ 2 ][ 2 ].lock );
+			
+			list.fireWith({})
+		
+		}
+	});
+	
+	promise.promise( deferred, promise );
+	
+	return deferred;
+}
+
+console.log( Deferred() );
+</script>
+</body>
+</html>

@@ -1,3 +1,4 @@
-import gulp from 'gulp';
+import { parallel } from 'gulp';
+import build from './build';
 
-gulp.task( 'default', [ 'build' ] );
+export default parallel(build);

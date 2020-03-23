@@ -1,2 +1,3 @@
-import requireDir from 'require-dir';
-console.log(requireDir('./tasks'));
+import de from './tasks/default';
+
+export default de;

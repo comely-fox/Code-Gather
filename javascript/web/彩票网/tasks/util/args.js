@@ -1,4 +1,4 @@
-var yargs = require('yargs');
+import yargs from 'yargs';
 
 var args = yargs
   .option('production', {

@@ -1,10 +1,9 @@
-import gulp from 'gulp';
-import gulpSequence from 'gulp-sequence'; // 顺序执行
+import { series, parallel } from 'gulp';
+import clean from './clean';
+import css from './css';
+import pages from './pages';
+import scripts from './scripts';
+import browser from './browser';
+import server from './server';
 
-gulp.task( 'build',
-    // 规定顺序执行
-            gulpSequence(
-                'clean', 'css', 'pages', 'scripts',
-                [ 'browser', 'server' ]
-            )
-);
+export default series(clean, css, pages, scripts, parallel(browser, server));

@@ -11,7 +11,7 @@ import uglify from 'gulp-uglify'; // 文件压缩
 import { log, colors } from 'gulp-util';
 import args from './util/args';
 
-gulp.task('scripts', () => {
+export default function scripts() {
   return gulp
     .src(['src/js/index.js'])
     .pipe(
@@ -61,4 +61,4 @@ gulp.task('scripts', () => {
     )
     .pipe(gulp.dest('server/public/js'))
     .pipe(gulpif(args.watch, livereload()));
-});
+}

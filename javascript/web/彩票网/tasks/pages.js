@@ -3,9 +3,9 @@ import gulpif from 'gulp-if';
 import livereload from 'gulp-livereload';
 import args from './util/args';
 
-gulp.task('pages', () => {
+export default function pages() {
   return gulp
     .src('src/**/*.ejs')
     .pipe(gulp.dest('server'))
     .pipe(gulpif(args.watch, livereload()));
-});
+}

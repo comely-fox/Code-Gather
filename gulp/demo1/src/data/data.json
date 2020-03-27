@@ -1,0 +1,17 @@
+{
+  "title": {
+    "index": "首页",
+    "error": "error"
+  },
+  "csslink": {
+    "index": ["common"]
+  },
+  "jsLink": {
+    "index": ["index"]
+  },
+  "intro": {
+    "author": "comely-fox",
+    "email": "707893615@qq.com",
+    "github": "https//github.com/comely-fox"
+  }
+}

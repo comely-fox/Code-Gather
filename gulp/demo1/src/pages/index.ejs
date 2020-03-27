@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title.index %></title>
+    <% csslink.index.forEach(csssrc => { %>
+    <link rel="stylesheet" href="./assest/css/<%= csssrc+min%>.css " />
+    <% }) %> <% jsLink.index.forEach(jssrc => { %>
+    <script type="text/javascript" src="./assest/js/<%= jssrc %>.js ">
+      <% }) %>
+    </script>
+  </head>
+  <body>
+    <%- include("./tpl/footer.ejs") %>
+    <img src="pag.png" alt="" />
+  </body>
+</html>

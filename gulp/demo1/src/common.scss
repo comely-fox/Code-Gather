@@ -1,0 +1,9 @@
+$colorwhite: rgb(190, 192, 81);
+body {
+  background-color: $colorwhite;
+  div {
+    transform: translate(50px);
+    background-image: url(../images/test.jpg);
+    border-radius: 3%;
+  }
+}

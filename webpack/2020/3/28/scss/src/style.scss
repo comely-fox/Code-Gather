@@ -1,0 +1,9 @@
+.hello {
+  &.box {
+    width: 200px;
+    height: 200px;
+    border-radius: 4%;
+    border: 1px solid green;
+    transform: translate(20%, 20%);
+  }
+}

@@ -1,0 +1,20 @@
+.hello {
+  color: red;
+  /* 
+    经过url-loader 替换掉了最终输出的路径 
+    并经过responsive-loader 响应设置图片宽度
+  */
+
+  background: url('./images/test.jpg?size=120');
+}
+
+@media (max-width: 320px) {
+  .hello {
+    background: url('./images/test.jpg?size=320');
+  }
+}
+@media (max-width: 640px) {
+  .hello {
+    background: url('./images/test.jpg?size=640');
+  }
+}

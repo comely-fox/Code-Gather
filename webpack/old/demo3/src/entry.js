@@ -1,0 +1,1 @@
+document.querySelector('#info').innerHTML = 'Hello World!, My content from entry.js';

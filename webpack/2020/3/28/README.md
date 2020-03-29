@@ -4,7 +4,7 @@ folder:
 
 - scss, image, font, data, ... 管理资源， 解析非 js 模块
   1. scss: [style-loader, css-loader, sass-loader, postcss-loader]
-  2. image: [url-loader, file-loader, image-webpack-loader, responsive-loader]
+  2. image: [url-loader, file-loader, image-webpack-loader, responsive-loader] any file
   3. font: [url-loader, file-loader, font-awesome]
   4. data: [csv-loader, xml-loader]
 - output - 管理输出

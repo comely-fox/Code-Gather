@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <% const imgSrc =
+    require('../images/test.jpg?sizes[]=100,sizes[]=120,sizes[]=140,sizes[]=160,sizes[]=180,sizes[]=200')
+    %> <% for(var i = 0; i < imgSrc.images.length; i++) { %> <% const path =
+    imgSrc.images[i].path; const width = imgSrc.images[i].width; const height =
+    imgSrc.images[i].height %>
+    <img
+      src="<%=  path %>"
+      alt="w: <%= width %>; h: <%= height %>"
+      title="w: <%= width %>; h: <%= height %>"
+    />
+    <% } %>
+
+    <input
+      id="imglist"
+      type="hidden"
+      name=""
+      value="<%- JSON.stringify(imgSrc) %>"
+    />
+
+    <script>
+      console.log(JSON.parse(document.getElementById('imglist').value));
+    </script>
+  </body>
+</html>

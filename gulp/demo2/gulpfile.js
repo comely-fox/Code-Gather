@@ -1,36 +1,38 @@
-const { src, dest, watch, series, parallel } = require('gulp');
+const { series, parallel, src, dest, watch } = require('gulp');
 const livereload = require('gulp-livereload');
 const http = require('http');
 const st = require('st');
+function pages() {
+  return src('src/**/*.html')
+    .pipe(dest('dist'))
+    .pipe(livereload());
+}
 
 function css() {
-  return src('./src/**/*.css')
+  return src('src/**/*.css')
+    .pipe(dest('dist'))
+    .pipe(livereload());
+}
+function script() {
+  return src('src/**/*.js')
     .pipe(dest('dist'))
     .pipe(livereload());
 }
 
-function pages() {
-  return src('./src/**/*.html')
-    .pipe(dest('dist'))
-    .pipe(livereload());
-}
-
-function update() {
+function wat() {
   livereload.listen();
-  watch('./src/**/*.css', css);
-  watch('./src/**/*.html', series(pages, server));
+  watch(['src/**/*.html'], pages);
+  watch(['src/**/*.css'], css);
+  watch(['src/**/*.js'], script);
 }
-var ht;
 
 function server(done) {
-  if (ht) {
-    ht.close();
-  }
-  return (ht = http
+  http
     .createServer(
       st({ path: __dirname + '/dist', index: 'index.html', cache: false })
     )
-    .listen(8080, done));
+    .listen(3000, () => {
+      done();
+    });
 }
-
-exports.default = series(pages, css, parallel(update, server));
+exports.default = series(pages, parallel(wat, server));

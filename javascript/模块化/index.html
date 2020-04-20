@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>amd 规范</title>
+    <script src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>
+    <script>
+      require.config({
+        baseUrl: 'https://cdn.bootcss.com/',
+        paths: {
+          jquery: 'jquery/3.5.0/jquery.min',
+          axios: 'axios/0.19.2/axios.min',
+        },
+      });
+
+      function spread(callback) {
+        // axios.spread
+        return function (arr) {
+          return callback.apply(null, arr);
+        };
+      }
+      require(['jquery', 'axios'], ($, axios) => {
+        Promise.all([
+          axios.get('http://localhost/data', {
+            params: {
+              id: 1,
+            },
+          }),
+          axios.get('http://localhost/await', {
+            params: {
+              id: 2,
+            },
+          }),
+        ])
+          .then(
+            spread(function (acct, perms) {
+              $('<ul/>')
+                .appendTo('body')
+                .append('<li>' + acct.request.responseText + '</li>')
+                .append('<li>' + perms.request.responseText + '</li>');
+              return Promise.reject('reject');
+            })
+          )
+          .catch((error) => {
+            console.log(error);
+          });
+      });
+    </script>
+  </head>
+  <body>
+    ddd
+  </body>
+</html>

@@ -1,3 +1,4 @@
 const a = 'es6';
 
-console.log(a);
+class b {}
+console.log(ab);

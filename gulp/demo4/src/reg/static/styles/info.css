@@ -1,0 +1,166 @@
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+  width: 5px;
+}
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #060505;
+  border-radius: 5px;
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: #bbb;
+  -webkit-box-shadow: inset 0 0 6px #060505;
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+html,
+body {
+  margin: 0px auto;
+  background-color: #010101;
+  height: 100%;
+  margin: 0px auto;
+  background-image: url(./../images/info/bg2.png);
+  background-repeat: no-repeat;
+  /* background-position:top center; */
+  background-size: cover;
+}
+img {
+  max-width: 100%;
+  width: 100%;
+  border: none;
+}
+.page .header {
+  background: url(./../images/header.png) no-repeat -328px -39px;
+  height: 109px;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+a {
+  color: #444444;
+  text-decoration: none;
+}
+a:hover {
+  color: #888888;
+}
+
+.page .header .icon {
+  height: 53px;
+  margin-left: 322px;
+  line-height: 53px;
+  background: url(./../images/icon.png) no-repeat 1px 5px;
+  padding-left: 61px;
+  color: #444444;
+  font-size: 20px;
+}
+.page .content {
+  width: 1268px;
+  margin: 0 auto;
+  max-width: 1268px;
+}
+.page .content .back {
+  height: 145px;
+  line-height: 145px;
+  padding-top: 132px;
+}
+.page .content .back a {
+  background: url('./../images/info/btn.png') no-repeat center;
+  width: 79px;
+  height: 57px;
+  display: block;
+}
+.page .content .back a:hover {
+  background: url('./../images/info/bnt-h.png') no-repeat center;
+}
+.page .content .msg {
+  background: url('./../images/info/bg-c.png') repeat-y;
+  margin-bottom: 100px;
+}
+.page .content .msg .table h3 {
+  margin: 0 auto;
+  color: #cbcdcc;
+  font-size: 30px;
+  line-height: 95px;
+  height: 95px;
+  text-align: center;
+}
+
+.page .content .msg .table p {
+  color: #cbcdcc;
+  font-size: 25px;
+  padding-left: 20px;
+  padding-right: 10px;
+  line-height: 44px;
+}
+.hr {
+  background: url('./../images/info/hr.png') no-repeat;
+  width: 1264px;
+  height: 4px;
+}
+.mt {
+  margin-bottom: 90px;
+}
+.page .content .msg .table .center {
+  text-align: center;
+}
+.page .content .msg .table .list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.page .content .msg .table .list li {
+}
+.page .content .msg .table .list p {
+  text-align: left;
+  line-height: 40px;
+  padding-left: 0px;
+  padding: 0;
+  margin: 0;
+  padding-bottom: 16px;
+  padding-left: 20px;
+}
+.page .content .msg .table .list h3 {
+  text-align: left;
+  height: 80px;
+  padding-left: 0px;
+  line-height: 80px;
+  padding-left: 20px;
+}
+.page .content .msg .sen-title {
+  margin: 0 auto;
+  color: #fbfbfb;
+  font-size: 25px;
+  line-height: 40px;
+  margin-top: 85px;
+  text-align: left;
+}
+.page .content .msg .sen-title p {
+  margin: 13px;
+  padding: 0;
+}
+
+.page .content .msg .sen-msg {
+  height: 800px;
+  overflow-y: scroll;
+  background-color: #1b1b1b;
+  color: #6d6d6d;
+  font-size: 20px;
+  padding: 0px 60px;
+  line-height: 35px;
+  margin-top: 100px;
+}
+.page .content .msg .sen-msg h3 {
+  font-size: 33px;
+  margin-top: 65px;
+  text-align: center;
+}
+
+.page .content .msg .sen-msg::-webkit-scrollbar {
+  width: 10px;
+}

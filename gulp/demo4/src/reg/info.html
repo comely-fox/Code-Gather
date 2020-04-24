@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>ラジエル</title>
+    <meta name="description" content=" " />
+    <link rel="stylesheet" href="./static/styles/info.css">
+    <script>/**
+        * YDUI 可伸缩布局方案
+        * rem计算方式：设计图尺寸px / 100 = 实际rem  例: 100px = 1rem
+        */
+       !function (window) {
+       
+           /* 设计图文档宽度 */
+           var docWidth = 1920;
+       
+           var doc = window.document,
+               docEl = doc.documentElement,
+               resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+       
+           var recalc = (function refreshRem () {
+               var clientWidth = docEl.getBoundingClientRect().width;
+       
+               /* 8.55：小于320px不再缩小，11.2：大于420px不再放大 */
+               docEl.style.fontSize = Math.max(Math.min(20 * (clientWidth / docWidth), 11.2), 8.55) * 5 + 'px';
+       
+               return refreshRem;
+           })();
+       
+           /* 添加倍屏标识，安卓为1 */
+           docEl.setAttribute('data-dpr', window.navigator.appVersion.match(/iphone/gi) ? window.devicePixelRatio : 1);
+       
+           if (/iP(hone|od|ad)/.test(window.navigator.userAgent)) {
+               /* 添加IOS标识 */
+               doc.documentElement.classList.add('ios');
+               /* IOS8以上给html添加hairline样式，以便特殊处理 */
+               if (parseInt(window.navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/)[1], 10) >= 8)
+                   doc.documentElement.classList.add('hairline');
+           }
+       
+           if (!doc.addEventListener) return;
+           window.addEventListener(resizeEvt, recalc, false);
+           doc.addEventListener('DOMContentLoaded', recalc, false);
+       
+       }(window);
+       
+       var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?b105d8d211daf39769dc4f94fd73770b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+       </script>
+</head>
+
+
+
+<body>
+
+  
+    <div class="page">
+        <div class="header">
+            <div class="icon"><a href="/book/index.html"> 公式ホームページへ</a></div>
+        </div>
+        <div class="content">
+            <div class="back">
+                <a href="/book/index.html">
+
+                </a>
+            </div>
+            <div class="msg">
+                <div class="table">
+                    <h3>実施概要</h3>
+                    <p class="center">正式リリースの前、クローズドβテストは3月27日にスタート！</p>
+                    <p>今回のクローズドβテストでは、ゲーム体験の改善やバグの排除を目的としております。クローズドβテストを通じ、テスターの皆様よりお寄せいただくご意見を基に、正式リリース版の品質向上に頑張ります。クローズドβテストにご参加いただき、忌憚ない意見をお寄せいただきますようお願いいたします。
+                    </p>
+                    <p class="mt"></p>
+                    <div class="hr"></div>
+                    <ul class="list">
+                        <li>
+                            <h3>◆CBTテスト人数</h3>
+                            <p>2000人</p>
+                            <div class="hr"></div>
+                        </li>
+
+                        <li>
+                            <h3>◆CBTテスト時間</h3>
+                            <p>03月27日（金）11：00~04月03日（金）23：59</p>
+                            <div class="hr"></div>
+                        </li>
+
+
+                        <li>
+                            <h3>◆ダウンロードページ</h3>
+                            <p>Google playでは3月27日の00:00から<a
+                                    href="https://play.google.com/store/apps/details?id=com.indra.jp.raziel"
+                                    target="_back">ダウンロード</a>していただけますので、お楽しみください。
+                            </p>
+                            <p> ※今回のクローズドβテストの募集人数は2000人に限られ、それ以上の登録はできかねます。</p>
+                            <div class="hr"></div>
+                        </li>
+
+                        <li>
+                            <h3>◆推奨動作環境</h3>
+                            <p>Android対応OS：Android 5.1以降</p>
+                            <p>推奨RAM：4.0GB以上搭載のスマートフォン端末</p>
+                            <p>必要RAM：3.0GB以上搭載のスマートフォン端末</p>
+                            <p> CPU: Qualcomm Snapdragon 660以上</p>
+                            <p> ストレージ：10.0GB以上推奨</p>
+                            <div class="hr"></div>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="sen-title">
+                    <p>※今回のCBTテストは有償通貨の購入ができなくて、正式リリースバージョンはアプリ内課金ございます。</p>
+                    <p>※ゲームサービスの品質向上のために、カスタマーサービスシステムでゲームに関する意見を頂けることをお待ちしております。</p>
+                    <p>※βテストのため、予期しない不具合が発生する可能性があります。</p>
+                    <p>※正式サービス向けのリターン報酬を配布するため、アンケートにご記入したメールアドレス及びプレイヤー IDが正しいことをご確認ください。
+                    </p>
+                </div>
+                <div class="sen-msg">
+                    <h3>『ラジエル』クローズドβテストご参加に関する注意事項</h3>
+                    <p>
+                        日本にお住いの方のみ、クローズドβテストに参加できます。
+                    </p>
+                    <p>クローズドβテストについてはゲーム内の問題に関する個別サポートは行いません。
+                    </p>
+                    <p> 登録したメールアドレスは、クローズドβテストの登録、管理・運営及びお知らせメールの配信に利用致します。
+                    </p>
+                    <p> クローズドβテストのプレイ日程や内容は予告なく変更される場合がございます。
+                    </p>
+                    <p>クローズドβテスト期間は予告なく緊急メンテナンスを行う場合がございます。
+                    </p>
+                    <p>クローズドβテスト期間は予告なくパラメータを変更する場合がございます。
+                    </p>
+                    <p>クローズドβテスト期間中のプレイ情報は、正式リリース時に引き継がれません。
+                    </p>
+                    <p> クローズドβテストアプリデータは、正式リリースに向けたサービス改善のため使用及び分析いたします。公開される内容は正式リリース版と異なり、一部使用できない機能などがございます。
+                    </p>
+                    <p> クローズドβテストでは有償通貨の購入は行えません。正式リリース時には基本プレイ無料＋アイテム課金という形になります。
+                    </p>
+                    <p>クローズドβテストアプリはクローズドβテスト終了後、削除をお願いいたします。削除せず正式リリースバージョンをダウンロードすると、予期せぬ問題などが発生する可能性があります。
+                    </p>
+                    <p>クローズドβテストでは円滑なゲームプレイができない可能性もあります。
+                    </p>
+                    <p>クローズドβテストに参加して頂いた端末でも、正式リリースバージョンをダウンロードできない或いはプレイできない可能性がございます。予めご了承ください。
+                    </p>
+                    <p>クローズドβテストは無料でプレイできますが、通信料等はお客様のご負担となります。
+                    </p>
+                    <p> クローズドβテストでは有償通貨の購入は行えません。正式リリース時には基本プレイ無料＋アイテム課金という形になります。
+                    </p>
+                    <p> クローズドβテストのプレイ動画の投稿、生放送配信、および画像投稿は、個人使用の目的に限り、ガイドラインに従いご利用いただけます。
+                    </p>
+                    <p> ゲームサービスの品質向上のために、カスタマーサービスシステムでゲームに関する意見を頂けることをお待ちしております。
+                    </p>
+                    <p>クローズドβテストのアカウントをお覚えください。正式リリースのサービスがスタートした一
+                        ヶ月以内に、クローズドβテストのアカウントを使って最初のキャラクターを作成したら、リターン報酬がもらえます。</p>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

@@ -39,6 +39,8 @@
                 .appendTo('body')
                 .append('<li>' + acct.request.responseText + '</li>')
                 .append('<li>' + perms.request.responseText + '</li>');
+
+              $('h2').text(perms.request.responseText);
               return Promise.reject('reject');
             })
           )
@@ -50,5 +52,7 @@
   </head>
   <body>
     ddd
+
+    <h2></h2>
   </body>
 </html>

@@ -7,3 +7,6 @@
   - es6 转 es5
   - 拷贝其它目录
   - 热更新
+- demo4 在 demo3 上优化, 更合理，更人性化，更全面。
+  - use: ['browser-sync', 'portfinder','eslint', 'http-server', 'live-server','gulp-connect']
+  - project: ['h', 'reg'] 是张巧丽工作时的游戏项目

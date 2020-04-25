@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./js/lib/sea.js"></script>
+  </head>
+  <body>
+    <button id="user">Get User Data</button>
+
+    <script>
+      seajs.config({
+        base: './js',
+        paths: {
+          main: 'main'
+        },
+        alias: {
+          jquery: 'https://cdn.bootcss.com/jquery/3.5.0/jquery.slim.min'
+        },
+        debug: false
+      })
+
+      seajs.use('main')
+    </script>
+  </body>
+</html>

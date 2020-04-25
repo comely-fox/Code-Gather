@@ -7,9 +7,8 @@ require.config({
 
 require(['jquery', 'api/api_get_user_data'], function ($, api) {
   $('#user').click(function () {
-    console.log(api.getUserData())
-    /*   api.getUserData().then(function (data) {
+    api.getUserData().then(function (data) {
       console.log(data)
-    }) */
+    })
   })
 })
